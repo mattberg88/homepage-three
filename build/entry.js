@@ -13,6 +13,7 @@ var mixer = void 0;
 var mouseOn = void 0;
 var intersectedObject = null;
 // animation loop
+var effect = new THREE.AnaglyphEffect(renderer, window.innerWidth, window.innerHeight);
 var renderPass = new THREE.RenderPass(scene, camera)
 var effectGlitch = new THREE.GlitchPass()
 effectGlitch.goWild = true
@@ -25,13 +26,14 @@ var onAnimationFrameHandler = function onAnimationFrameHandler() {
   renderer.render(scene, camera);
   if (clock.elapsedTime > 2) {
     effectGlitch.goWild = false
-    effectGlitch.camera.frustumCulled = false
+    effectGlitch.enabled = false
 
   }
   if (scene.children.length > 1) {
     mixer = sceneObjects.getGhostMixer();
     mixer.update(clock.getDelta());
   }
+  effect.render(scene, camera);
   composer.render(clock.getDelta())
   controls.update();
   window.requestAnimationFrame(onAnimationFrameHandler);

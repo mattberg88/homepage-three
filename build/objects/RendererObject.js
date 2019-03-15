@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = RendererObject;
 function RendererObject() {
   var renderer = new THREE.WebGLRenderer({ antialias: true });
-  renderer.setClearColor('#fcf5ed', 1);
+  renderer.setClearColor('white', 1);
   renderer.setPixelRatio(window.devicePixelRatio);
   return renderer;
 }
