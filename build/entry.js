@@ -16,17 +16,16 @@ var intersectedObject = null;
 var renderPass = new THREE.RenderPass(scene, camera)
 var effectGlitch = new THREE.GlitchPass()
 effectGlitch.goWild = true
-
 effectGlitch.renderToScreen = true
-
 var composer = new THREE.EffectComposer(renderer)
 composer.addPass(renderPass)
 composer.addPass(effectGlitch)
-
+composer.setSize(window.innerWidth / 2, window.innerHeight / 2)
 var onAnimationFrameHandler = function onAnimationFrameHandler() {
   renderer.render(scene, camera);
   if (clock.elapsedTime > 2) {
     effectGlitch.goWild = false
+    effectGlitch.camera.frustumCulled = false
 
   }
   if (scene.children.length > 1) {
