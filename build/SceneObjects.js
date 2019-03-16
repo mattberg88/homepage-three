@@ -5,7 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = SceneObjects;
 function SceneObjects(scene, camera) {
-
   var ghost = new Ghost(scene);
   var pressed = false;
   Light(scene);
