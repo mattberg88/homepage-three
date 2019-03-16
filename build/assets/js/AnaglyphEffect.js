@@ -41,7 +41,6 @@ THREE.AnaglyphEffect = function (renderer, width, height) {
 
   var _renderTargetL = new THREE.WebGLRenderTarget(width, height, _params);
   var _renderTargetR = new THREE.WebGLRenderTarget(width, height, _params);
-  console.log(_renderTargetL)
   var _material = new THREE.ShaderMaterial({
 
     uniforms: {
@@ -137,7 +136,7 @@ THREE.AnaglyphEffect = function (renderer, width, height) {
     if (camera.parent === null) camera.updateMatrixWorld();
 
     _stereo.update(camera);
-    _stereo.eyeSep = 0.03
+    _stereo.eyeSep = 0.04
     renderer.setRenderTarget(_renderTargetL);
     renderer.clear();
     renderer.render(scene, _stereo.cameraL);

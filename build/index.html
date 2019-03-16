@@ -25,10 +25,26 @@
 		<script src="objects/RendererObject.js"></script>
 		<script src="objects/Ghost.js"></script>
     <script src="objects/Light.js"></script>
-    <iframe src="assets/sounds/Static.mp3" allow="autoplay" style="display:none" id="iframeAudio"></iframe>
-    <audio src="assets/sounds/electric_door_opening_1.mp3" autoplay loop></audio>
-
-    <audio id="opensound" src="assets/sounds/electric_door_opening_1.mp3"></audio>
+		<audio 
+			id="dronesound"
+			src="assets/sounds/drone.mp3" 
+			autoplay 
+			loop>
+		</audio>
+		<audio 
+			id="staticsound"
+			src="assets/sounds/static.mp3" 
+			autoplay>
+		</audio>
+		<audio 
+			id="opensound" 
+			src="assets/sounds/electric_door_opening_1.mp3">
+		</audio>
 		<script src="entry.js"></script>
+		<script>
+			$('#staticsound').get(0).volume = 0.6;
+			$('#dronesound').get(0).volume = 0.2;
+			$('#opensound').get(0).volume = 0.3;
+		</script>
 	</body>
 </html>

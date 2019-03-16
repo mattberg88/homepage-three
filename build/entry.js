@@ -23,6 +23,9 @@ var composer = new THREE.EffectComposer(renderer)
 composer.addPass(renderPass)
 composer.addPass(effectGlitch)
 composer.setSize(window.innerWidth / 2, window.innerHeight / 2)
+
+console.log($('#opensound'))
+
 var onAnimationFrameHandler = function onAnimationFrameHandler() {
   renderer.render(scene, camera);
   if (clock.elapsedTime > 1.3) {
