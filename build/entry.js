@@ -20,8 +20,28 @@ composer.addPass(renderPass)
 composer.addPass(effectGlitch)
 composer.setSize(window.innerWidth / 2, window.innerHeight / 2)
 
+var particleCount = 10000,
+  particles = new THREE.Geometry(),
+  pMaterial = new THREE.PointsMaterial({
+    color: 0xFFFFFF,
+    size: 0.4
+  });
+for (var p = 0; p < particleCount; p++) {
+  var pX = Math.random() * 500 - 250,
+    pY = Math.random() * 500 - 250,
+    pZ = Math.random() * 500 - 250,
+    particle = new THREE.Vector3(pX, pY, pZ)
+  particles.vertices.push(particle);
+}
+var particleSystem = new THREE.ParticleSystem(
+  particles,
+  pMaterial);
+
+// add it to the scene
+scene.add(particleSystem);
 var onAnimationFrameHandler = function onAnimationFrameHandler() {
   renderer.render(scene, camera);
+  particleSystem.rotation.y -= 0.001;
   if (clock.elapsedTime > 1.3 && clock.elapsedTime < 2) {
     effectGlitch.goWild = false
     effectGlitch.enabled = false
@@ -40,12 +60,14 @@ onAnimationFrameHandler();
 var onMouseMove = function onMouseMove(event) {
   raycaster.setFromCamera(mouse, camera);
   if (scene.children.length > 1) {
-  scene.children[0].position.x = mouse.x * -3
-  scene.children[0].position.y = (mouse.y * 3) + 4
-  scene.children[1].children[1].rotation.z = mouse.x + 3.2;
-  scene.children[1].children[1].rotation.x = mouse.y - 1.5;
+    scene.children[0].position.x = mouse.x * -3
+    scene.children[0].position.y = (mouse.y * 3) + 4
+    scene.children[2].children[1].rotation.z = mouse.x + 3;
+    scene.children[2].children[1].rotation.x = mouse.y - 1.58 
+    effect.setStrength(mouse.x/4)
+
   }
-  if (mouse.x < 0.1 && mouse.x > -0.1 && mouse.y < 0.1 && mouse.y > -0.1) { 
+  if (mouseOn === 'eye') { 
     effectGlitch.enabled = true
     effectGlitch.goWild = true
     sceneObjects.staticSound()
@@ -54,10 +76,11 @@ var onMouseMove = function onMouseMove(event) {
     effectGlitch.goWild = false
   }
   if (scene.children.length > 1) {
-    var intersects = raycaster.intersectObjects(scene.children[1].children);
+    var intersects = raycaster.intersectObjects(scene.children[2].children);
     if (intersects.length > 0) {
+      console.log(intersects)
       if (intersects[0].object !== intersectedObject) intersectedObject = intersects[0].object;
-      if (intersectedObject.name === 'ZBrush_defualt_group002') mouseOn = 'button';
+      if (intersectedObject.name === 'ZBrush_defualt_group002') mouseOn = 'eye';
     } else {
       intersectedObject = null;
       mouseOn = null;
@@ -68,7 +91,7 @@ var onMouseMove = function onMouseMove(event) {
 };
 // mouse interaction
 var onMouseDown = function onMouseDown() {
-  if (mouseOn === 'button') {
+  if (mouseOn === 'eye') {
     //sceneObjects.buttonPress();
   }
 };

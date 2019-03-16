@@ -9,12 +9,13 @@ function Ghost(scene) {
   var material = null;
   var mixer = null;
   var loader = new THREE.GLTFLoader();
-  var normalMap = new THREE.TextureLoader().load("../assets/textures/demonnorms.png");
+  var normalMap = new THREE.TextureLoader().load("../assets/textures/demonnorms.gif");
   loader.load('../assets/gltf/demonalien2.gltf', function (obj) {
     scene.add(obj.scene);
     mixer = new THREE.AnimationMixer(obj.scene);
     gltfObject = obj;
     for (var i = 0; i < gltfObject.scene.children.length; i += 1) {
+    obj.scene.children[i].position.y += 1
     material = obj.scene.children[i].material
     material.normalMap = normalMap;
     material.normalMap.flipY = false;

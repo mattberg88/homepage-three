@@ -126,7 +126,9 @@ THREE.AnaglyphEffect = function (renderer, width, height) {
     _renderTargetR.setSize(width * pixelRatio, height * pixelRatio);
 
   };
-
+  this.setStrength = function(strength) {
+    _stereo.eyeSep = strength;
+  };
   this.render = function (scene, camera) {
 
     var currentRenderTarget = renderer.getRenderTarget();
@@ -136,7 +138,6 @@ THREE.AnaglyphEffect = function (renderer, width, height) {
     if (camera.parent === null) camera.updateMatrixWorld();
 
     _stereo.update(camera);
-    _stereo.eyeSep = 0.04
     renderer.setRenderTarget(_renderTargetL);
     renderer.clear();
     renderer.render(scene, _stereo.cameraL);
