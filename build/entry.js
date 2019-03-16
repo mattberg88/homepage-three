@@ -1,6 +1,5 @@
 'use strict';
-
-// setup
+var mixer, mouseOn, intersectedObject;
 var scene = new THREE.Scene();
 var camera = new CameraObject();
 var renderer = new RendererObject();
@@ -9,10 +8,6 @@ var clock = new THREE.Clock();
 var sceneObjects = new SceneObjects(scene, camera);
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
 var mouse = new THREE.Vector2();
-var mixer = void 0;
-var mouseOn = void 0;
-var intersectedObject = null;
-// animation loop
 var effect = new THREE.AnaglyphEffect(renderer, window.innerWidth, window.innerHeight);
 var renderPass = new THREE.RenderPass(scene, camera)
 var effectGlitch = new THREE.GlitchPass()
@@ -24,9 +19,7 @@ var composer = new THREE.EffectComposer(renderer)
 composer.addPass(renderPass)
 composer.addPass(effectGlitch)
 composer.setSize(window.innerWidth / 2, window.innerHeight / 2)
-$('#staticsound').get(0).volume = 0.6;
-$('#dronesound').get(0).volume = 0.2;
-$('#opensound').get(0).volume = 0.3;
+
 var onAnimationFrameHandler = function onAnimationFrameHandler() {
   renderer.render(scene, camera);
   if (clock.elapsedTime > 1.3 && clock.elapsedTime < 2) {
@@ -46,14 +39,16 @@ onAnimationFrameHandler();
 // mouse movement
 var onMouseMove = function onMouseMove(event) {
   raycaster.setFromCamera(mouse, camera);
+  if (scene.children.length > 1) {
   scene.children[0].position.x = mouse.x * -3
   scene.children[0].position.y = (mouse.y * 3) + 4
   scene.children[1].children[1].rotation.z = mouse.x + 3.2;
   scene.children[1].children[1].rotation.x = mouse.y - 1.5;
+  }
   if (mouse.x < 0.1 && mouse.x > -0.1 && mouse.y < 0.1 && mouse.y > -0.1) { 
     effectGlitch.enabled = true
     effectGlitch.goWild = true
-    sceneObjects.staticSound();
+    sceneObjects.staticSound()
   } else {
     effectGlitch.enabled = false
     effectGlitch.goWild = false
@@ -61,7 +56,6 @@ var onMouseMove = function onMouseMove(event) {
   if (scene.children.length > 1) {
     var intersects = raycaster.intersectObjects(scene.children[1].children);
     if (intersects.length > 0) {
-      console.log(intersects[0].object.name === 'ZBrush_defualt_group002')
       if (intersects[0].object !== intersectedObject) intersectedObject = intersects[0].object;
       if (intersectedObject.name === 'ZBrush_defualt_group002') mouseOn = 'button';
     } else {
@@ -85,11 +79,17 @@ var windowResizeHanlder = function windowResizeHanlder() {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
 };
+// var onLoad = function onLoad() {
+//   $('#staticsound').get(0).volume = 0.6;
+//   $('#staticsound').get(0).play();
+// };
 windowResizeHanlder();
 // listeners
 window.addEventListener('resize', windowResizeHanlder);
 window.addEventListener('mousemove', onMouseMove, false);
 window.addEventListener('mousedown', onMouseDown, false);
+//window.addEventListener('load', onLoad);
+
 // dom
 document.body.style.margin = 0;
 document.body.appendChild(renderer.domElement);
