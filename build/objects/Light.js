@@ -4,8 +4,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = Light;
-function Light(scene) {
-  var light = new THREE.DirectionalLight(0xffffff);
-  light.position.set(0.5, 1.2, -1).normalize();
+function Light(scene, xyz, color, int) {
+  var light = new THREE.DirectionalLight(color);
+  light.position.x = xyz.x;
+  light.position.y = xyz.y;
+  light.position.z = xyz.z;
+  light.intensity = int;
   scene.add(light);
+
 }
