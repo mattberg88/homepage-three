@@ -1,14 +1,73 @@
 <html>
 	<head>
-		<title>Three.js Boilerplate</title>
+		<title>mattBerg.</title>
+		<link rel="stylesheet" type="text/css" href="assets/style/semantic.min.css">
+		<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/components/icon.min.css'>
 		<style>
-			body { margin: 0; }
+			@font-face {
+  			font-family: "8bitlim";
+  			src: url(assets/fonts/8bitlim.woff);
+			}
+			#title { 
+				position: absolute;
+				display: block; 
+				font-size: 50;
+				letter-spacing: 3px;
+				color: rgba(0, 254, 254, 1);
+				display: block;
+				z-index: 99;
+				left: 78%;
+				top: 85%;
+			}
+			#title:after {
+				content:"mattBerg.";
+				position:absolute;
+				display: block;
+				top:0;
+				right:3px;
+				color: rgba(254, 0, 2, 1);
+				mix-blend-mode:screen;
+			}
+			body { 
+				margin: 0;
+				font-family: "8bitlim" 
+			}
 			canvas { width: 640px; height: 360px }
+			#audioIcon {
+				cursor:pointer;
+				color: white;
+				position: absolute;
+				display: block;
+				z-index: 99;
+				left: 93%;
+				top: 2.5%;
+			}		
+			.ui.dropdown .menu>.item  {
+				margin-top:10%;
+				bottom :50;
+				font-size: 30;
+				color: white!important;
+			}
+			.menu.transition {
+				background: none!important;
+			}
 		</style>
 	</head>
 	<body>
+		<div id="audioIcon">soundOff.</div>
+		<div id="title" class="ui left dropdown">
+			mattBerg.
+			<div class="menu">
+				<div class="item">Art</div>
+				<div class="item">Web</div>
+				<div class="item">CV</div>
+				<div class="item">Bio</div>
+				<div class="item">Contact</div>
+			</div>
+		</div>
 		<script> var exports = {}; </script>
 		<script src="assets/js/JQuery.js"></script>
+		<script src="assets/js/semantic.min.js"></script>
 		<script src="assets/js/Three.js"></script>
 		<script src="assets/js/OrbitControls.js"></script>
     <script src="assets/js/GLTFLoader.js"></script>
@@ -23,21 +82,11 @@
 		<script src="SceneObjects.js"></script>
 		<script src="objects/CameraObject.js"></script>
 		<script src="objects/RendererObject.js"></script>
+		<script src="objects/ParticlesObject.js"></script>
 		<script src="objects/Ghost.js"></script>
     <script src="objects/Light.js"></script>
-		<audio 
-			preload="auto"
-			id="dronesound"
-			src="assets/sounds/drone.ogg" 
-			autoplay 
-			loop>
-		</audio>
-		<audio 
-			preload="auto"
-			id="staticsound"
-			src="assets/sounds/static.ogg" 
-			autoplay>
-		</audio>
+		<audio preload="auto" id="dronesound" src="assets/sounds/drone.ogg" loop></audio>
+		<audio preload="auto" id="staticsound" src="assets/sounds/static.ogg"></audio>
 		<script src="entry.js"></script>
 	</body>
 </html>

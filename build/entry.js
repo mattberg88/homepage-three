@@ -19,29 +19,11 @@ var composer = new THREE.EffectComposer(renderer)
 composer.addPass(renderPass)
 composer.addPass(effectGlitch)
 composer.setSize(window.innerWidth / 2, window.innerHeight / 2)
-
-var particleCount = 10000,
-  particles = new THREE.Geometry(),
-  pMaterial = new THREE.PointsMaterial({
-    color: 0xFFFFFF,
-    size: 0.4
-  });
-for (var p = 0; p < particleCount; p++) {
-  var pX = Math.random() * 500 - 250,
-    pY = Math.random() * 500 - 250,
-    pZ = Math.random() * 500 - 250,
-    particle = new THREE.Vector3(pX, pY, pZ)
-  particles.vertices.push(particle);
-}
-var particleSystem = new THREE.ParticleSystem(
-  particles,
-  pMaterial);
-
-// add it to the scene
-scene.add(particleSystem);
+$("#staticsound").get(0).volume = 0;
+$('.ui.dropdown').dropdown();
 var onAnimationFrameHandler = function onAnimationFrameHandler() {
   renderer.render(scene, camera);
-  particleSystem.rotation.y -= 0.001;
+  sceneObjects.update();
   if (clock.elapsedTime > 1.3 && clock.elapsedTime < 2) {
     effectGlitch.goWild = false
     effectGlitch.enabled = false
@@ -78,7 +60,6 @@ var onMouseMove = function onMouseMove(event) {
   if (scene.children.length > 1) {
     var intersects = raycaster.intersectObjects(scene.children[2].children);
     if (intersects.length > 0) {
-      console.log(intersects)
       if (intersects[0].object !== intersectedObject) intersectedObject = intersects[0].object;
       if (intersectedObject.name === 'ZBrush_defualt_group002') mouseOn = 'eye';
     } else {
@@ -90,9 +71,13 @@ var onMouseMove = function onMouseMove(event) {
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 };
 // mouse interaction
-var onMouseDown = function onMouseDown() {
+var onMouseDown = function onMouseDown(e) {
+  console.log(e)
   if (mouseOn === 'eye') {
     //sceneObjects.buttonPress();
+  }
+  if (e.target.id === 'audioIcon'){
+    sceneObjects.toggleAudio()
   }
 };
 // window resize
