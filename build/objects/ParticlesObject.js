@@ -18,7 +18,7 @@ function ParticlesObject(scene) {
       particle = new THREE.Vector3(pX, pY, pZ)
     particles.vertices.push(particle);
   }
-  var particleSystem = new THREE.ParticleSystem(
+  var particleSystem = new THREE.Points(
     particles,
     pMaterial
   );
