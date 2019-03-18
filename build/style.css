@@ -2,6 +2,35 @@
   font-family: "8bitlim";
   src: url(assets/fonts/8bitlim.woff);
 }
+
+body { 
+  margin: 0;
+  font-family: "8bitlim" 
+}
+
+canvas { 
+  width: 640px; 
+  height: 360px 
+}
+
+#backButton {
+  cursor: pointer;
+  position: absolute;
+  z-index: 99;
+  color: white;
+  display: none;
+  left: 50%;
+  bottom: 10%;
+}
+
+#placeholder {
+  position: absolute;
+  color: white;
+  display: none;
+  left: 7%;
+  bottom: 10%;
+}
+
 #title { 
   position: absolute;
   display: block; 
@@ -13,6 +42,7 @@
   right: 7%;
   bottom: 10%;
 }
+
 #title:after {
   content:"mattBerg.";
   position:absolute;
@@ -22,11 +52,7 @@
   color: rgba(254, 0, 2, 1);
   mix-blend-mode:screen;
 }
-body { 
-  margin: 0;
-  font-family: "8bitlim" 
-}
-canvas { width: 640px; height: 360px }
+
 #audioIcon {
   cursor:pointer;
   color: white;
@@ -36,14 +62,15 @@ canvas { width: 640px; height: 360px }
   left: 88vw;
   top: 2.5%;
 }		
+
 .ui.dropdown .menu>.item  {
   margin-bottom: 5vh!important;
   font-size: 3vh;
   color: white!important;
   text-align: right;
   margin-right: -55%!important;
-
 }
+
 .menu.transition {
   margin-right: 10vw!important;
   text-align: right!important;

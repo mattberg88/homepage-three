@@ -3,9 +3,10 @@
 		<title>mattBerg.</title>
 		<link rel="stylesheet" type="text/css" href="assets/style/semantic.min.css">
 		<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.1.8/components/icon.min.css'>
-		<link rel="stylesheet" type="text/css" href="./style.css">
-	</head>
+    <link rel="stylesheet" type="text/css" href="./style.css">
+  </head>
 	<body>
+    </div>
 		<div id="audioIcon">soundOff.</div>
 		<div id="title" class="ui dropdown">
 			mattBerg.
@@ -16,7 +17,9 @@
 				<div class="item">bio.</div>
 				<div class="item">contact.</div>
 			</div>
-		</div>
+    </div>
+    <div id="placeholder"></div>
+    <a id="backButton">back.</a>
 		<script> var exports = {}; </script>
 		<script src="assets/js/JQuery.js"></script>
 		<script src="assets/js/semantic.min.js"></script>
@@ -30,15 +33,20 @@
 		<script src="assets/js/CopyShader.js"></script>
 		<script src="assets/js/GlitchPass.js"></script>
     <script src="assets/js/DigitalGlitch.js"></script>
-
 		<script src="SceneObjects.js"></script>
 		<script src="objects/CameraObject.js"></script>
 		<script src="objects/RendererObject.js"></script>
 		<script src="objects/ParticlesObject.js"></script>
 		<script src="objects/Ghost.js"></script>
     <script src="objects/Light.js"></script>
+
 		<audio preload="auto" id="dronesound" src="assets/sounds/drone.ogg" loop></audio>
-		<audio preload="auto" id="staticsound" src="assets/sounds/static.ogg"></audio>
+    <audio preload="auto" id="staticsound" src="assets/sounds/static.ogg"></audio>
+    <audio preload="auto" id="menu1" src="assets/sounds/menu1.ogg"></audio>
+    <audio preload="auto" id="menu2" src="assets/sounds/menu2.ogg"></audio>
+    <audio preload="auto" id="menu3" src="assets/sounds/menu3.ogg"></audio>
+    <audio preload="auto" id="menu4" src="assets/sounds/menu4.ogg"></audio>
+
 		<script src="entry.js"></script>
 	</body>
 </html>

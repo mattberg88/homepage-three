@@ -5,11 +5,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = SceneObjects;
 function SceneObjects(scene) {
+  var moveBy = 0.05;
+  var viewSection = 2
   var ghost = new Ghost(scene);
-  var pressed = false; 0xf2ece8
   var light = new Light(scene, { x: 0, y: 0, z: -5 }, 'white', 1);
   var particles = new ParticlesObject(scene);
   $("#staticsound").get(0).volume = 0;
+  $("#menu1").get(0).volume = 0;
+  $("#menu2").get(0).volume = 0;
+
   $('.ui.dropdown').dropdown({ direction: 'upward' });
   $('.ui.dropdown').direction = 'upward';
   scene.position.y = -5;
@@ -34,14 +38,20 @@ function SceneObjects(scene) {
   };
 
   this.toggleAudio = function () {
-    console.log($("#audioIcon").html())
     if ($("#audioIcon").html() === 'soundOff.') {
       $("#audioIcon").html('soundOn.')
       $("#dronesound").get(0).play()
-      $("#dronesound").get(0).volume = 0.2;
+      $("#menu1").get(0).volume = 0.4;
+      $("#menu2").get(0).volume = 0.4;
+      $("#menu4").get(0).volume = 0.4;
+      $("#dronesound").get(0).volume = 0.4;
       $("#staticsound").get(0).volume = 0.5;
     } else {
       $("#audioIcon").html('soundOff.')
+      $("#menu1").get(0).volume = 0;
+      $("#menu2").get(0).volume = 0;
+
+      $("#menu4").get(0).volume = 0;
       $("#dronesound").get(0).pause()
       $("#staticsound").get(0).volume = 0;
     }
@@ -57,5 +67,32 @@ function SceneObjects(scene) {
     composer.setSize(window.innerWidth / 2, window.innerHeight / 2)
     effectGlitch.goWild = true
     effectGlitch.renderToScreen = true
-  }
+  };
+
+  this.renderSection = function (type) {
+    console.log(type)
+    if(type === 'cV.') {
+      $("#placeholder").load("assets/html/cv.html").fadeIn();
+      $("#backButton").fadeIn();
+
+    }
+  };
+  
+  this.moveRight = function (scene) {
+    if (viewSection === 3) {
+      if (scene.position.x > 39) {
+        viewSection = 1;
+      }
+      scene.position.x += moveBy;
+      moveBy -= 0.1;
+    }
+    if (viewSection === 2) {
+      if (scene.position.x > 20) {
+        viewSection = 3
+      } else {
+        scene.position.x += moveBy;
+        moveBy += 0.1;
+      }
+    }
+  };
 }

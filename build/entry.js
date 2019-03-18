@@ -12,32 +12,16 @@ var composer = new THREE.EffectComposer(renderer)
 var renderPass = new THREE.RenderPass(scene, camera)
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
 var effect = new THREE.AnaglyphEffect(renderer, window.innerWidth, window.innerHeight);
-var viewSection = 1;
 sceneObjects.setUpComposer(composer, renderPass, effectGlitch)
+var moveRight = false;
 mouse.x = 0;
 mouse.y = 0;
-var moveBy = 0.05
-var onAnimationFrameHandler = function onAnimationFrameHandler() {
-  if (viewSection === 3) {
-    if (scene.position.x > 39) {
-      return;
-    } else {
-    scene.position.x += moveBy;
-    moveBy -= 0.1;
-    }
-  }
 
-  if (viewSection === 2) {
-    if (scene.position.x > 20) {
-      viewSection = 3
-    } else {
-      scene.position.x += moveBy;
-      moveBy += 0.1;
-    }
-  }
+var onAnimationFrameHandler = function onAnimationFrameHandler() {
   var time = clock.getDelta();
   renderer.render(scene, camera);
   sceneObjects.update();
+  if (moveRight) sceneObjects.moveRight(scene);
   if (clock.elapsedTime > 1.3 && clock.elapsedTime < 2) {
     sceneObjects.glitch(effectGlitch, false)
   }
@@ -83,9 +67,14 @@ var onMouseMove = function onMouseMove(event) {
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 };
 // mouse interaction
-var onMouseDown = function onMouseDown(e) {
-  if (e.target.innerHTML === "cV.") {
-    viewSection = 2;
+var onMouseDown = function onMouseDown(e) {  
+  if (e.target.id === "title") {
+    $('#menu1').get(0).play();
+  }
+  if (e.target.className === "item" ) {
+    $('#menu2').get(0).play();
+    moveRight = true
+    sceneObjects.renderSection(e.target.innerHTML)
   }
   if (mouseOn === 'eye') {
     //sceneObjects.buttonPress();
