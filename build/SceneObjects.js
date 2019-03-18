@@ -10,10 +10,10 @@ function SceneObjects(scene) {
   var ghost = new Ghost(scene);
   var light = new Light(scene, { x: 0, y: 0, z: -5 }, 'white', 1);
   var particles = new ParticlesObject(scene);
+  $("#backButton").hide();
   $("#staticsound").get(0).volume = 0;
   $("#menu1").get(0).volume = 0;
   $("#menu2").get(0).volume = 0;
-
   $('.ui.dropdown').dropdown({ direction: 'upward' });
   $('.ui.dropdown').direction = 'upward';
   scene.position.y = -5;
