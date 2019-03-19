@@ -75,6 +75,9 @@ function SceneObjects(scene) {
     if(type === 'cV.') {
       $("#placeholder").load("assets/html/cv.html").fadeIn();
     }
+    if (type === 'contact.') {
+      $("#placeholder").load("assets/html/contact.html").fadeIn();
+    }
   };
 
   this.ghostFadeIn = function (scene) {
