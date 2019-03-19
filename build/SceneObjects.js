@@ -28,8 +28,8 @@ function SceneObjects(scene) {
   };
 
   this.ghostEyeRotate = function (ghostEye, mouse) {
-    ghostEye.rotation.z = mouse.x + 3;
-    ghostEye.rotation.x = mouse.y - 1.58 
+    ghostEye.rotation.z = mouse.x + 3.2;
+    ghostEye.rotation.x = mouse.y - 1.7 
   };
 
   this.lightSetPos = function (light, mouse) {

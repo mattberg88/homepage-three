@@ -13,16 +13,6 @@ canvas {
   height: 360px 
 }
 
-#backButton {
-  cursor: pointer;
-  position: absolute;
-  z-index: 99;
-  color: white;
-  display: block;
-  left: 50%;
-  bottom: 10%;
-}
-
 #placeholder {
   pointer-events: none;
   height: 100%;

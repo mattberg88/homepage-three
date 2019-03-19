@@ -14,8 +14,8 @@ var controls = new THREE.OrbitControls(camera, renderer.domElement);
 var effect = new THREE.AnaglyphEffect(renderer, window.innerWidth, window.innerHeight);
 sceneObjects.setUpComposer(composer, renderPass, effectGlitch)
 var ghostVisible = true;
-mouse.x = 0;
-mouse.y = 0;
+mouse.x = 2;
+mouse.y = 2;
 
 var onAnimationFrameHandler = function onAnimationFrameHandler() {
   var time = clock.getDelta();
@@ -48,7 +48,7 @@ var onMouseMove = function onMouseMove(event) {
       }), mouse
     );
     sceneObjects.ghostEyeRotate(scene.children[2].children[1], mouse);
-    effect.setStrength(mouse.x/4)
+    effect.setStrength(mouse.x/5)
     var intersects = raycaster.intersectObjects(scene.children[2].children);
     if (intersects.length > 0) {
       if (intersects[0].object !== intersectedObject) intersectedObject = intersects[0].object;
@@ -70,21 +70,13 @@ var onMouseMove = function onMouseMove(event) {
 // mouse interaction
 var onMouseDown = function onMouseDown(e) {  
   if (e.target.id === "title") {
+    ghostVisible = true
+    $('#placeholder').fadeOut()
     $('#menu2').get(0).play();
   }
   if (e.target.className.includes("item") ) {
-    console.log('item')
     ghostVisible = false
     sceneObjects.renderSection(e.target.innerHTML)
-  }
-  if (e.target.id === "backButton") {
-    ghostVisible = true
-    $('#placeholder').fadeOut()
-    $('#backButton').fadeOut()
-
-  }
-  if (mouseOn === 'eye') {
-    //sceneObjects.buttonPress();
   }
   if (e.target.id === 'audioIcon'){
     sceneObjects.toggleAudio()
