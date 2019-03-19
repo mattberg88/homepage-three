@@ -5,8 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = SceneObjects;
 function SceneObjects(scene) {
-  var moveBy = 0.05;
-  var viewSection = 2
   var ghost = new Ghost(scene);
   var light = new Light(scene, { x: 0, y: 0, z: -5 }, 'white', 1);
   var particles = new ParticlesObject(scene);
@@ -14,6 +12,8 @@ function SceneObjects(scene) {
   $("#staticsound").get(0).volume = 0;
   $("#menu1").get(0).volume = 0;
   $("#menu2").get(0).volume = 0;
+  $("#menu3").get(0).volume = 0;
+
   $('.ui.dropdown').dropdown({ direction: 'upward' });
   $('.ui.dropdown').direction = 'upward';
   scene.position.y = -5;
@@ -43,9 +43,10 @@ function SceneObjects(scene) {
       $("#dronesound").get(0).play()
       $("#menu1").get(0).volume = 0.4;
       $("#menu2").get(0).volume = 0.4;
-      $("#menu4").get(0).volume = 0.4;
+      $("#menu3").get(0).volume = 0.4;
       $("#dronesound").get(0).volume = 0.4;
       $("#staticsound").get(0).volume = 0.5;
+
     } else {
       $("#audioIcon").html('soundOff.')
       $("#menu1").get(0).volume = 0;
@@ -70,29 +71,34 @@ function SceneObjects(scene) {
   };
 
   this.renderSection = function (type) {
-    console.log(type)
+    $("#backButton").fadeIn();
     if(type === 'cV.') {
       $("#placeholder").load("assets/html/cv.html").fadeIn();
-      $("#backButton").fadeIn();
+    }
+  };
 
-    }
-  };
-  
-  this.moveRight = function (scene) {
-    if (viewSection === 3) {
-      if (scene.position.x > 39) {
-        viewSection = 1;
+  this.ghostFadeIn = function (scene) {
+    scene.children[2].children.forEach(function (i) {
+      if (i.material.opacity < 1) {
+        i.material.opacity += 0.1
+        i.material.transparent = true;
       }
-      scene.position.x += moveBy;
-      moveBy -= 0.1;
-    }
-    if (viewSection === 2) {
-      if (scene.position.x > 20) {
-        viewSection = 3
-      } else {
-        scene.position.x += moveBy;
-        moveBy += 0.1;
+    })
+  }
+  this.ghostFadeOut = function (scene) {
+    scene.children[2].children.forEach(function(i){ 
+      if(i.material.opacity > 0) {
+        i.material.opacity -= 0.1 
+        i.material.transparent = true;
       }
-    }
-  };
+    })
+    
+      // if (scene.position.x < 20) {
+      //   scene.position.x += moveBy;
+      //   moveBy += 0.1;      
+      // } else if(scene.position.x < 40) {
+      //   scene.position.x += moveBy;
+      //   moveBy -= 0.1;
+      // }
+  }
 }

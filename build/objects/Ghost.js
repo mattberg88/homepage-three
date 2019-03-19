@@ -15,16 +15,22 @@ function Ghost(scene) {
     mixer = new THREE.AnimationMixer(obj.scene);
     gltfObject = obj;
     for (var i = 0; i < gltfObject.scene.children.length; i += 1) {
-    obj.scene.children[i].position.y += 1
-    material = obj.scene.children[i].material
-    material.normalMap = normalMap;
-    material.normalMap.flipY = false;
-    material.normalScale.x = 2
-    material.normalScale.y = 2
+      obj.scene.children[i].position.y += 1;
+      obj.scene.children[i].position.x += 1;
+      material = obj.scene.children[i].material;
+      material.transparent = true;
+      material.opacity = 0;
+      material.normalMap = normalMap;
+      material.normalMap.flipY = false;
+      material.normalScale.x = 2;
+      material.normalScale.y = 2;
     }
   });
   this.getMixer = function () {
     return mixer;
+  };
+  this.getGhost = function () {
+    return gltfObject;
   };
   this.open = function () {
     for (var i = 0; i < gltfObject.animations.length; i += 1) {

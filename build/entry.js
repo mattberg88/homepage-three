@@ -13,7 +13,7 @@ var renderPass = new THREE.RenderPass(scene, camera)
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
 var effect = new THREE.AnaglyphEffect(renderer, window.innerWidth, window.innerHeight);
 sceneObjects.setUpComposer(composer, renderPass, effectGlitch)
-var moveRight = false;
+var ghostVisible = true;
 mouse.x = 0;
 mouse.y = 0;
 
@@ -21,11 +21,13 @@ var onAnimationFrameHandler = function onAnimationFrameHandler() {
   var time = clock.getDelta();
   renderer.render(scene, camera);
   sceneObjects.update();
-  if (moveRight) sceneObjects.moveRight(scene);
-  if (clock.elapsedTime > 1.3 && clock.elapsedTime < 2) {
+
+  if (clock.elapsedTime > 1 && clock.elapsedTime < 2) {
     sceneObjects.glitch(effectGlitch, false)
   }
   if (scene.children.length > 2) {
+    if (ghostVisible) sceneObjects.ghostFadeIn(scene);
+    if (!ghostVisible) sceneObjects.ghostFadeOut(scene);
     mixer = sceneObjects.getGhostMixer();
     mixer.update(time);
   }
@@ -56,12 +58,11 @@ var onMouseMove = function onMouseMove(event) {
       mouseOn = null;
     }
   }
-  if (mouseOn === 'eye') { 
+  if(ghostVisible && mouseOn === 'eye'){
     sceneObjects.glitch(effectGlitch, true)
-  } else {
-    if (clock.elapsedTime > 1.3) {
-      sceneObjects.glitch(effectGlitch, false)
-    }
+  }
+  if (mouseOn !== 'eye' && clock.elapsedTime > 1.3) {
+    sceneObjects.glitch(effectGlitch, false)
   }
   mouse.x = event.clientX / window.innerWidth * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -69,12 +70,18 @@ var onMouseMove = function onMouseMove(event) {
 // mouse interaction
 var onMouseDown = function onMouseDown(e) {  
   if (e.target.id === "title") {
-    $('#menu1').get(0).play();
-  }
-  if (e.target.className === "item" ) {
     $('#menu2').get(0).play();
-    moveRight = true
+  }
+  if (e.target.className.includes("item") ) {
+    console.log('item')
+    ghostVisible = false
     sceneObjects.renderSection(e.target.innerHTML)
+  }
+  if (e.target.id === "backButton") {
+    ghostVisible = true
+    $('#placeholder').fadeOut()
+    $('#backButton').fadeOut()
+
   }
   if (mouseOn === 'eye') {
     //sceneObjects.buttonPress();
