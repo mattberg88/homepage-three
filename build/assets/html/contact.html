@@ -1,17 +1,76 @@
-<div class="cv">
+<div>
   <style>
   #contact {
     font-size: 2vw;
     margin-top: 40vh;
-    margin-left: 20vw
+    margin-left: 30vw;
+    pointer-events: all;
   }  
+  #contact>a {
+    display:inline;
+    margin-right: 5vw;
+    color: rgba(0, 254, 254, 1);
+  }  
+  #info {
+    font-size: 1vw;
+    position:absolute;
+    display:block;
+    bottom: 30%;
+    left: 42%;
+    color: rgba(0, 254, 254, 1);
+
+  }
+  #info:after {
+    content:"mattbergart@gmail.com";
+    position:absolute;
+    display: block;
+    top:0;
+    left:2;
+    color: rgba(254, 0, 2, 1);
+    mix-blend-mode:screen;
+  }
+  #instagram:after {
+  content:"instaGram.";
+  display: inline;
+  top:0;
+  margin-left:-10vw;
+  color: rgba(254, 0, 2, 1);
+  mix-blend-mode:screen;
+}
+  #github:after {
+  content:"gitHub.";
+  display: inline;
+  top:0;
+  margin-left:-7vw;
+  color: rgba(254, 0, 2, 1);
+  mix-blend-mode:screen;
+}
+  #linkedin:after {
+  content:"linkedIn.";
+  display: inline;
+  margin-left:-8vw;
+  top:0;
+  color: rgba(254, 0, 2, 1);
+  mix-blend-mode:screen;
+}
 
   </style>
-  <div id="contact" class="ui grid">
-    <div class="three wide column"></div>
-      <div class="five wide column">instaGram.</div>
-      <div class="five wide column">gitHub.</div>
-      <div class="five wide column">linkedIn.</div>
+  <div id="info">
+    mattbergart@gmail.com
+  </div>
+  <div id="contact">
+      <a 
+        href="http://www.instagram.com/mattbergart/"
+        id="instaGram">instaGram.
+      </a>
+      <a 
+        href="http://github.com/mattberg88"
+        id="gitHub">gitHub.
+      </a>
+      <a 
+        href="http://www.linkedin.com/in/matt-berg-23a67462/"
+        id="linkedin">linkedIn.
+      </a>
     </div>
   </div>
 </div>

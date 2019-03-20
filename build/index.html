@@ -9,16 +9,16 @@
 		<div id="title" class="ui dropdown">
 			mattBerg.
 			<div class="menu">
-				<div class="item">art.</div>
-				<div class="item">web.</div>
-				<div class="item">cV.</div>
-				<div class="item">bio.</div>
-				<div class="item">contact.</div>
+				<div id="mainArt" class="item">art.</div>
+				<div id="mainWeb" class="item">web.</div>
+				<div id="mainCv" class="item">cV.</div>
+				<div id="mainBio" class="item">bio.</div>
+				<div id="mainContact" class="item">contact.</div>
 			</div>
     </div>
     <div id="placeholder"></div>
 		<script> var exports = {}; </script>
-		<script src="assets/js/JQuery.js"></script>
+    <script src="assets/js/JQuery.js"></script>
 		<script src="assets/js/semantic.min.js"></script>
 		<script src="assets/js/Three.js"></script>
 		<script src="assets/js/OrbitControls.js"></script>
@@ -36,7 +36,15 @@
 		<script src="objects/ParticlesObject.js"></script>
 		<script src="objects/Ghost.js"></script>
     <script src="objects/Light.js"></script>
-
+    <script>
+      $('document').ready(function() {
+        $("#staticsound").get(0).volume = 0;
+        $("#menu1").get(0).volume = 0;
+        $("#menu2").get(0).volume = 0;
+        $("#menu3").get(0).volume = 0;
+        $('.ui.dropdown').dropdown({ direction: 'upward' });
+      })
+    </script>
 		<audio preload="auto" id="dronesound" src="assets/sounds/drone.ogg" loop></audio>
     <audio preload="auto" id="staticsound" src="assets/sounds/static.ogg"></audio>
     <audio preload="auto" id="menu1" src="assets/sounds/menu1.ogg"></audio>

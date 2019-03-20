@@ -1,54 +1,70 @@
-<div class="cv">
+<div>
   <style>
-    #skills {
-      position:absolute;
-      display: block;
-      bottom: 20%;
+    h1, h2, h3{
+      font-family: "8bitlim"!important;
     }
-    #employment {
-      position:absolute;
-      display: block;
-      margin-left:50%;
-      bottom:20%;
+    #cvTitle {
+      font-size: 2vw;
+      margin-top: 5vh;
+      text-align: center;
     }
+    #cv {
+      font-family: "Lato"!important;
+      font-size: 1vw;
+      padding-top: 6vh;
+      padding-bottom: 30vh;
+      pointer-events: all;
+      text-align: center;
+      height:70%;
+      overflow:auto;
+    }
+    #cv:after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: 10%;
+      width: 80%;
+      height: 40%;
+      background-image: linear-gradient(to bottom, rgba(255,255,255,0), black);
+      pointer-events: none;
+    }
+    
   </style>
-  <div class="title">
+  <div id="cvTitle">
     <h1>CV</h1>
     <h2>Front-End Developer / Designer</h2>
   </div>
-  <div class="skills">
+  <div id="cv">
     <h3>Skills and Qualifications:</h3>
-    <p> Advanced skill with Node, React, Vue, Webpack, SQL, Pug,</p>
-    <p> Apollo, GraphQL, Typescript, Java, Python, C#, C++ and Git</p>
-    <p> Expert with 3D rendering</p>
-    <p> Fluent in Japanese</p>
-    <p> Strong art background and a good eye for design and aesthetics</p>
-    <p> Working both independently and as a part of a team</p>
-    <p> Growth mindset; always eager to learn more</p>
-  </div>
-  </div>
-  <div id="employment">
+      <br>
+        <div class="alignLeft">
+          <p> - Advanced skill with Node, React, Vue, Webpack, SQL, Pug,</p>
+          <p> - Apollo, GraphQL, Typescript, Java, Python, C#, C++ and Git</p>
+          <p> - Expert with 3D rendering</p>
+          <p> - Fluent in Japanese</p>
+          <p> - Strong art background and a good eye for design and aesthetics</p>
+          <p> - Working both independently and as a part of a team</p>
+          <p> - Growth mindset; always eager to learn more</p>
+        </div>
+      <br>
     <h3>Employment:</h3>
-
+    <br>
     <p>Fujisan Magazine Services Co.</p>
+    <br>
     <p>(Full-time) May 2018 - Current
-
-    <p>Web App Developer: Design and create React Applications for</p>
-    <p>vendor/customer product commerce. Many tasks involving creating</p>
-    <p>node webkit applications with React and Vue.</p>
-
+    <p>Web App Developer: Design and create React Applications for vendor/customer product commerce.</p>
+    <p>Many tasks involving creating node webkit applications with React and Vue.</p>
+    <br>
     <p>High Fidelity</p>
+    <br>
     <p>(Freelance) December 2017 – May 2018</p>
-
-    <p>Software Engineer/Technical Artist: Scripted custom tools for Maya</p>
-    <p>and Houdini to speed up workflow and C# in Unity for implementing VR</p>
-    <p>setups to the avatar rigs.</p>
-
+    <p>Software Engineer/Technical Artist: Scripted custom tools for Maya and Houdini to speed up</p>
+    <p>workflow and C# in Unity for implementing VR setups to the avatar rigs.</p>
+    <br>
     <p>Para-Bellum Studios</p>
+    <br>
     <p>(Full-Time)  May 2016 – August 2017</p>
-
-    <p>3D sculptor/Web Designer: Created injection moldable miniatures for</p>
-    <p>board games using ZBrush from concept art. Also developed website and </p>
-    <p>working with graphic and UI artists to work on website.</p>
+    <p>3D sculptor/Web Designer: Created injection moldable miniatures for board games using ZBrush from </p>
+    <p>concept art. Also developed website and working with graphic and UI artists to work on website.</p>
   </div>
 </div>

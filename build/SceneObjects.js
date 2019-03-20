@@ -8,14 +8,6 @@ function SceneObjects(scene) {
   var ghost = new Ghost(scene);
   var light = new Light(scene, { x: 0, y: 0, z: -5 }, 'white', 1);
   var particles = new ParticlesObject(scene);
-  $("#backButton").hide();
-  $("#staticsound").get(0).volume = 0;
-  $("#menu1").get(0).volume = 0;
-  $("#menu2").get(0).volume = 0;
-  $("#menu3").get(0).volume = 0;
-
-  $('.ui.dropdown').dropdown({ direction: 'upward' });
-  $('.ui.dropdown').direction = 'upward';
   scene.position.y = -5;
   scene.position.z = 2;
 
@@ -40,18 +32,18 @@ function SceneObjects(scene) {
   this.toggleAudio = function () {
     if ($("#audioIcon").html() === 'soundOff.') {
       $("#audioIcon").html('soundOn.')
+      $("#audioIcon").addClass('change');
       $("#dronesound").get(0).play()
       $("#menu1").get(0).volume = 0.4;
       $("#menu2").get(0).volume = 0.4;
       $("#menu3").get(0).volume = 0.4;
       $("#dronesound").get(0).volume = 0.4;
       $("#staticsound").get(0).volume = 0.5;
-
     } else {
       $("#audioIcon").html('soundOff.')
+      $("#audioIcon").removeClass('change');
       $("#menu1").get(0).volume = 0;
       $("#menu2").get(0).volume = 0;
-
       $("#menu4").get(0).volume = 0;
       $("#dronesound").get(0).pause()
       $("#staticsound").get(0).volume = 0;
@@ -71,12 +63,17 @@ function SceneObjects(scene) {
   };
 
   this.renderSection = function (type) {
-    $("#backButton").fadeIn();
     if(type === 'cV.') {
+      console.log('cv')
       $("#placeholder").load("assets/html/cv.html").fadeIn();
     }
     if (type === 'contact.') {
+      console.log('contact')
       $("#placeholder").load("assets/html/contact.html").fadeIn();
+    }
+    if (type === 'art.') {
+      console.log('contact')
+      $("#placeholder").load("assets/html/art.html").fadeIn();
     }
   };
 

@@ -15,8 +15,8 @@ canvas {
 
 #placeholder {
   pointer-events: none;
-  height: 360px; 
-  width: 640px; 
+  height: 100%; 
+  width: 100%; 
   position: absolute;
   color: white;
   display: hidden;
@@ -46,25 +46,60 @@ canvas {
 
 #audioIcon {
   cursor:pointer;
-  color: white;
+  color: rgba(0, 254, 254, 1);
   position: absolute;
   display: block;
   z-index: 99;
   left: 88vw;
   top: 2.5%;
 }		
-
-.ui.dropdown .menu>.item  {
+#audioIcon:after {
+  content:"soundOff";
+  position:absolute;
+  display: block;
+  top:0;
+  right:5px;
+  color: rgba(254, 0, 2, 1);
+  mix-blend-mode:screen;
+}	
+#audioIcon.change:after {
+  content:'soundOn';
+}
+.ui.dropdown .menu>.item {
   margin-bottom: 5vh!important;
   font-size: 3vh;
-  color: white!important;
+  color: rgba(0, 254, 254, 1);
   text-align: right;
-  margin-right: -55%!important;
+}
+.ui.dropdown .menu>.item.active.selected  {
+  color: rgba(0, 254, 254, 1);
 }
 
+.ui.dropdown .menu>.item:after {
+  position:absolute;
+  display: block;
+  top:11px;
+  right:18px;
+  color: rgba(254, 0, 2, 1);
+  mix-blend-mode:screen;
+}
+#mainArt:after {
+ content:"art.";
+}	
+#mainWeb:after {
+ content:"web.";
+}	
+#mainCv:after {
+ content:"cV.";
+}	
+#mainBio:after {
+ content:"bio.";
+}	
+#mainContact:after {
+ content:"contact.";
+}	
 .menu.transition {
-  margin-right: 10vw!important;
-  text-align: right!important;
+  margin-bottom:5vh!important;
+  right:-5%;
   background: none!important;
-  margin-bottom: 20%!important;
 }
