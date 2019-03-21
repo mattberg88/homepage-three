@@ -8,8 +8,7 @@ function SceneObjects(scene) {
   var ghost = new Ghost(scene);
   var light = new Light(scene, { x: 0, y: 0, z: -5 }, 'white', 1);
   var particles = new ParticlesObject(scene);
-  scene.position.y = -5;
-  scene.position.z = 2;
+  scene.position.set(0, -5, 2);
 
   this.update = function () {
     particles.rotate()
@@ -31,20 +30,14 @@ function SceneObjects(scene) {
 
   this.toggleAudio = function () {
     if ($("#audioIcon").html() === 'soundOff.') {
-      $("#audioIcon").html('soundOn.')
-      $("#audioIcon").addClass('change');
-      $("#dronesound").get(0).play()
-      $("#menu1").get(0).volume = 0.4;
-      $("#menu2").get(0).volume = 0.4;
-      $("#menu3").get(0).volume = 0.4;
+      $("#audioIcon").html('soundOn.').addClass('change')
       $("#dronesound").get(0).volume = 0.4;
-      $("#staticsound").get(0).volume = 0.5;
+      $("#staticsound").get(0).volume = 0.4;
+      $("#menu2").get(0).volume = 0.4;
+      $("#dronesound").get(0).play()
     } else {
-      $("#audioIcon").html('soundOff.')
-      $("#audioIcon").removeClass('change');
-      $("#menu1").get(0).volume = 0;
+      $("#audioIcon").html('soundOff.').removeClass('change');
       $("#menu2").get(0).volume = 0;
-      $("#menu4").get(0).volume = 0;
       $("#dronesound").get(0).pause()
       $("#staticsound").get(0).volume = 0;
     }
@@ -63,17 +56,18 @@ function SceneObjects(scene) {
   };
 
   this.renderSection = function (type) {
-    if(type === 'cV.') {
-      console.log('cv')
-      $("#placeholder").load("assets/html/cv.html").fadeIn();
-    }
-    if (type === 'contact.') {
-      console.log('contact')
-      $("#placeholder").load("assets/html/contact.html").fadeIn();
-    }
-    if (type === 'art.') {
-      console.log('contact')
-      $("#placeholder").load("assets/html/art.html").fadeIn();
+    switch (type) {
+      case 'art.':
+        $("#placeholder").load("assets/html/art.html").fadeIn(); break;
+      case 'web.':
+        $("#placeholder").load("assets/html/art.html").fadeIn(); break;
+      case 'cV.' :
+        $("#placeholder").load("assets/html/cv.html").fadeIn(); break;
+      case 'bio.':
+        $("#placeholder").load("assets/html/bio.html").fadeIn(); break;
+      case 'contact.':
+        $("#placeholder").load("assets/html/contact.html").fadeIn(); break;
+        default: null;
     }
   };
 
@@ -92,13 +86,5 @@ function SceneObjects(scene) {
         i.material.transparent = true;
       }
     })
-    
-      // if (scene.position.x < 20) {
-      //   scene.position.x += moveBy;
-      //   moveBy += 0.1;      
-      // } else if(scene.position.x < 40) {
-      //   scene.position.x += moveBy;
-      //   moveBy -= 0.1;
-      // }
   }
 }

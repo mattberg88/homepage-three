@@ -14,14 +14,12 @@ var controls = new THREE.OrbitControls(camera, renderer.domElement);
 var effect = new THREE.AnaglyphEffect(renderer, window.innerWidth, window.innerHeight);
 sceneObjects.setUpComposer(composer, renderPass, effectGlitch)
 var ghostVisible = true;
-mouse.x = 2;
-mouse.y = 2;
+var modelLoaded = false;
 
 var onAnimationFrameHandler = function onAnimationFrameHandler() {
   var time = clock.getDelta();
   renderer.render(scene, camera);
   sceneObjects.update();
-
   if (clock.elapsedTime > 1 && clock.elapsedTime < 2) {
     sceneObjects.glitch(effectGlitch, false)
   }
@@ -32,7 +30,6 @@ var onAnimationFrameHandler = function onAnimationFrameHandler() {
     mixer.update(time);
   }
   effect.render(scene, camera);
-
   composer.render(time)
   controls.update();
   window.requestAnimationFrame(onAnimationFrameHandler);
@@ -80,6 +77,9 @@ var onMouseDown = function onMouseDown(e) {
   }
   if (e.target.id === 'audioIcon'){
     sceneObjects.toggleAudio()
+  }
+  if(e.target.name === 'carouselImage') {
+    
   }
 };
 // window resize
