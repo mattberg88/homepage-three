@@ -1,0 +1,101 @@
+<div>
+  <div id="placeTitle">
+    <h1>art.</h1>
+  </div>
+  <div id="carousel">
+    <figure id="spinner">
+      <img src="assets/img/astral-emissary.jpg" alt>
+      <img src="assets/img/old-man.jpg" alt>
+      <img src="assets/img/astral-emissary.jpg" alt>
+      <img src="assets/img/old-man.jpg" alt>
+      <img src="assets/img/astral-emissary.jpg" alt>
+      <img src="assets/img/astral-emissary.jpg" alt>
+      <img src="assets/img/old-man.jpg" alt>
+      <img src="assets/img/astral-emissary.jpg" alt>
+      <img src="assets/img/old-man.jpg" alt>
+      <img src="assets/img/astral-emissary.jpg" alt>
+      <img src="assets/img/astral-emissary.jpg" alt>
+      <img src="assets/img/old-man.jpg" alt>
+      <img src="assets/img/astral-emissary.jpg" alt>
+      <img src="assets/img/old-man.jpg" alt>
+      <img src="assets/img/astral-emissary.jpg" alt>
+    </figure>
+  </div>
+  <div class="ui basic modal">
+    <div class="content">
+      <img src="assets/img/astral-emissary.jpg" width="100%" />
+    </div>
+  </div>
+  <span id="lefticon" class="ss-icon" onclick="galleryspin('-')">&lt;</span>
+  <span id="righticon" class="ss-icon" onclick="galleryspin('')">&gt;</span>
+</div>
+<style>
+.ss-icon {
+  pointer-events: all;
+  }
+#lefticon {
+  float: left;
+}
+#righticon {
+  float: right;
+  right: 20vw;
+}
+div#carousel { 
+  perspective: 1200px;  
+  padding-top: 10%; 
+  font-size:0; 
+  margin-bottom: 3vh; 
+  margin-left: 15vw; 
+  overflow: hidden; 
+}
+div#carousel ~ span { 
+  color: #fff; 
+  margin-left: 20%;
+  display: inline-block; 
+  text-decoration: none; 
+  font-size: 2rem; 
+  transition: 0.6s color; 
+  position: relative; 
+  margin-top: -6rem; 
+  border-bottom: none; 
+  line-height: 0; 
+}
+div#carousel ~ span:hover { 
+  color: #888; 
+  cursor: pointer; 
+}
+figure#spinner { 
+  transform-style: preserve-3d; 
+  height: 300px; 
+  transform-origin: 35% 50% -500px; 
+  transition: 1s; 
+} 
+figure#spinner img { 
+  pointer-events: all;
+  max-width:200px;
+  position: absolute; 
+  left: 30%;
+  bottom: 20%;
+  transform-origin: 50% 50% -500px;
+  outline:1px solid transparent; 
+}
+
+</style>
+<script>
+  var transform = 360 / ($('#spinner').children().length)
+  $.each($('#spinner').children(), function(k, i){
+    $(i).css('transform', `rotateY(${transform * (-k)}deg)`)
+      .css('width', `${200/ ($('#spinner').children().length)}vw`)
+  })
+  $('#spinner').click(function (i) {
+    console.log($('.ui.modal')[0].children[0].children[0].src)
+    $('.ui.modal')[0].children[0].children[0].src =  i.target.src
+    $('.ui.modal').modal('show')
+  })
+  var angle = 0;
+  function galleryspin(sign) {
+    spinner = document.querySelector("#spinner");
+    if (!sign) { angle += transform; } else { angle -= transform; }
+    spinner.setAttribute("style", "-webkit-transform: rotateY(" + angle + "deg); -moz-transform: rotateY(" + angle + "deg); transform: rotateY(" + angle + "deg);");
+  }
+</script>

@@ -6,18 +6,31 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = Ghost;
 function Ghost(scene) {
   var gltfObject = null;
+  var material = null;
   var mixer = null;
   var loader = new THREE.GLTFLoader();
-  loader.load('../assets/gltf/ghostanim4.gltf', function (obj) {
+  var normalMap = new THREE.TextureLoader().load("../assets/textures/demonnorms.gif");
+  loader.load('../assets/gltf/demonalien2.gltf', function (obj) {
     scene.add(obj.scene);
     mixer = new THREE.AnimationMixer(obj.scene);
     gltfObject = obj;
     for (var i = 0; i < gltfObject.scene.children.length; i += 1) {
-      gltfObject.scene.children[i].material.side = THREE.DoubleSide;
+      obj.scene.children[i].position.y += 1;
+      obj.scene.children[i].position.x += 1;
+      material = obj.scene.children[i].material;
+      material.transparent = true;
+      material.opacity = 0;
+      material.normalMap = normalMap;
+      material.normalMap.flipY = false;
+      material.normalScale.x = 2;
+      material.normalScale.y = 2;
     }
   });
   this.getMixer = function () {
     return mixer;
+  };
+  this.getGhost = function () {
+    return gltfObject;
   };
   this.open = function () {
     for (var i = 0; i < gltfObject.animations.length; i += 1) {

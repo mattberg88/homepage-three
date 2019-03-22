@@ -1,76 +1,96 @@
 'use strict';
-
-// setup
+var mixer, mouseOn, intersectedObject;
+var clock = new THREE.Clock();
 var scene = new THREE.Scene();
+var mouse = new THREE.Vector2();
 var camera = new CameraObject();
 var renderer = new RendererObject();
 var raycaster = new THREE.Raycaster();
-var clock = new THREE.Clock();
-var sceneObjects = new SceneObjects(scene, camera);
-var controls = new THREE.OrbitControls(camera, renderer.domElement);
-var mouse = new THREE.Vector2();
-var mixer = void 0;
-var mouseOn = void 0;
-var intersectedObject = null;
-// animation loop
-var renderPass = new THREE.RenderPass(scene, camera)
 var effectGlitch = new THREE.GlitchPass()
-effectGlitch.goWild = true
-effectGlitch.renderToScreen = true
+var sceneObjects = new SceneObjects(scene);
 var composer = new THREE.EffectComposer(renderer)
-composer.addPass(renderPass)
-composer.addPass(effectGlitch)
-composer.setSize(window.innerWidth / 2, window.innerHeight / 2)
-var onAnimationFrameHandler = function onAnimationFrameHandler() {
-  renderer.render(scene, camera);
-  if (clock.elapsedTime > 2) {
-    effectGlitch.goWild = false
-    effectGlitch.camera.frustumCulled = false
+var renderPass = new THREE.RenderPass(scene, camera)
+var controls = new THREE.OrbitControls(camera, renderer.domElement);
+var effect = new THREE.AnaglyphEffect(renderer, window.innerWidth, window.innerHeight);
+sceneObjects.setUpComposer(composer, renderPass, effectGlitch)
+var ghostVisible = true;
+var modelLoaded = false;
+var isMobile = false
+controls.enabled = false;
 
+var animate = function() {
+  renderer.render(scene, camera);
+  sceneObjects.update();
+  if (clock.elapsedTime > 1 && clock.elapsedTime < 2) {
+    sceneObjects.glitch(effectGlitch, false)
   }
-  if (scene.children.length > 1) {
+  if (scene.children.length > 2) {
+    if (ghostVisible) sceneObjects.ghostFadeIn(scene);
+    if (!ghostVisible) sceneObjects.ghostFadeOut(scene);
     mixer = sceneObjects.getGhostMixer();
     mixer.update(clock.getDelta());
   }
+  effect.render(scene, camera);
   composer.render(clock.getDelta())
-  controls.update();
-  window.requestAnimationFrame(onAnimationFrameHandler);
+  //controls.update();
+  requestAnimationFrame(animate);
 };
-onAnimationFrameHandler();
+animate();
 // mouse movement
-var onMouseMove = function onMouseMove(event) {
+var onMouseMove = function(event) {
   raycaster.setFromCamera(mouse, camera);
-  if (scene.children.length > 1) {
-    var intersects = raycaster.intersectObjects(scene.children[1].children);
+  if (scene.children[2]) {
+    sceneObjects.lightSetPos(
+      scene.children.find(function (i) { 
+        return i.type === "DirectionalLight"; 
+      }), mouse
+    );
+    sceneObjects.ghostEyeRotate(scene.children[2].children[1], mouse);
+    effect.setStrength(mouse.x/5)
+    var intersects = raycaster.intersectObjects(scene.children[2].children);
     if (intersects.length > 0) {
       if (intersects[0].object !== intersectedObject) intersectedObject = intersects[0].object;
-      if (intersectedObject.name === 'Button') mouseOn = 'button';
+      if (intersects[0].object.name === 'ZBrush_defualt_group002') mouseOn = 'eye';
     } else {
       intersectedObject = null;
       mouseOn = null;
     }
   }
+  if(ghostVisible && mouseOn === 'eye'){
+    $('#staticsound').get(0).play().then(() => { }).catch(e => { })
+    sceneObjects.glitch(effectGlitch, true)
+  }
+  if (mouseOn !== 'eye' && clock.elapsedTime > 1.3) {
+    sceneObjects.glitch(effectGlitch, false)
+  }
   mouse.x = event.clientX / window.innerWidth * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 };
-// mouse interaction
-var onMouseDown = function onMouseDown() {
-  if (mouseOn === 'button') {
-    sceneObjects.buttonPress();
+var onMouseDown = function(e) {  
+  if (e.target.id === "title") {
+    ghostVisible = true
+    $('#placeholder').fadeOut()
+    $('#menu2').get(0).play();
+  }
+  if (e.target.className.includes("item") ) {
+    ghostVisible = false
+    sceneObjects.renderSection(e.target.innerHTML)
+  }
+  if (e.target.id === 'audioIcon'){
+    sceneObjects.toggleAudio()
+  }
+  if(e.target.name === 'carouselImage') { 
+    console.log('carousel')
   }
 };
-// window resize
-var windowResizeHanlder = function windowResizeHanlder() {
-
+var windowResizeHanlder = function() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
 };
 windowResizeHanlder();
-// listeners
 window.addEventListener('resize', windowResizeHanlder);
 window.addEventListener('mousemove', onMouseMove, false);
 window.addEventListener('mousedown', onMouseDown, false);
-// dom
 document.body.style.margin = 0;
 document.body.appendChild(renderer.domElement);
