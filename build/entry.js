@@ -18,11 +18,6 @@ var modelLoaded = false;
 var isMobile = false
 controls.enabled = false;
 
-if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-  mouse.x = 10;
-  mouse.y = 10;
-  sceneObjects.glitch(effectGlitch, false)
-}
 var animate = function() {
   renderer.render(scene, camera);
   sceneObjects.update();
