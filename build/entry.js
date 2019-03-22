@@ -55,6 +55,7 @@ var onMouseMove = function(event) {
     }
   }
   if(ghostVisible && mouseOn === 'eye'){
+    $('#staticsound').get(0).play().then(() => { }).catch(e => { })
     sceneObjects.glitch(effectGlitch, true)
   }
   if (mouseOn !== 'eye' && clock.elapsedTime > 1.3) {

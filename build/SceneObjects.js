@@ -43,7 +43,7 @@ function SceneObjects(scene) {
     }
   };
   this.glitch = function (effectGlitch, bool) {
-    $('#staticsound').get(0).play().then(() => {}).catch(e => {})
+    //$('#staticsound').get(0).play()
     effectGlitch.enabled = bool;
     effectGlitch.goWild = bool;
   };
