@@ -15,9 +15,8 @@ var effect = new THREE.AnaglyphEffect(renderer, window.innerWidth, window.innerH
 sceneObjects.setUpComposer(composer, renderPass, effectGlitch)
 var ghostVisible = true;
 var modelLoaded = false;
-
-var onAnimationFrameHandler = function onAnimationFrameHandler() {
-  var time = clock.getDelta();
+controls.enabled = false;
+var animate = function() {
   renderer.render(scene, camera);
   sceneObjects.update();
   if (clock.elapsedTime > 1 && clock.elapsedTime < 2) {
@@ -27,16 +26,16 @@ var onAnimationFrameHandler = function onAnimationFrameHandler() {
     if (ghostVisible) sceneObjects.ghostFadeIn(scene);
     if (!ghostVisible) sceneObjects.ghostFadeOut(scene);
     mixer = sceneObjects.getGhostMixer();
-    mixer.update(time);
+    mixer.update(clock.getDelta());
   }
   effect.render(scene, camera);
-  composer.render(time)
-  controls.update();
-  window.requestAnimationFrame(onAnimationFrameHandler);
+  composer.render(clock.getDelta())
+  //controls.update();
+  requestAnimationFrame(animate);
 };
-onAnimationFrameHandler();
+animate();
 // mouse movement
-var onMouseMove = function onMouseMove(event) {
+var onMouseMove = function(event) {
   raycaster.setFromCamera(mouse, camera);
   if (scene.children[2]) {
     sceneObjects.lightSetPos(
@@ -49,7 +48,7 @@ var onMouseMove = function onMouseMove(event) {
     var intersects = raycaster.intersectObjects(scene.children[2].children);
     if (intersects.length > 0) {
       if (intersects[0].object !== intersectedObject) intersectedObject = intersects[0].object;
-      if (intersectedObject.name === 'ZBrush_defualt_group002') mouseOn = 'eye';
+      if (intersects[0].object.name === 'ZBrush_defualt_group002') mouseOn = 'eye';
     } else {
       intersectedObject = null;
       mouseOn = null;
@@ -64,8 +63,7 @@ var onMouseMove = function onMouseMove(event) {
   mouse.x = event.clientX / window.innerWidth * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 };
-// mouse interaction
-var onMouseDown = function onMouseDown(e) {  
+var onMouseDown = function(e) {  
   if (e.target.id === "title") {
     ghostVisible = true
     $('#placeholder').fadeOut()
@@ -78,27 +76,18 @@ var onMouseDown = function onMouseDown(e) {
   if (e.target.id === 'audioIcon'){
     sceneObjects.toggleAudio()
   }
-  if(e.target.name === 'carouselImage') {
-    
+  if(e.target.name === 'carouselImage') { 
+    console.log('carousel')
   }
 };
-// window resize
-var windowResizeHanlder = function windowResizeHanlder() {
+var windowResizeHanlder = function() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
 };
-// var onLoad = function onLoad() {
-//   $('#staticsound').get(0).volume = 0.6;
-//   $('#staticsound').get(0).play();
-// };
 windowResizeHanlder();
-// listeners
 window.addEventListener('resize', windowResizeHanlder);
 window.addEventListener('mousemove', onMouseMove, false);
 window.addEventListener('mousedown', onMouseDown, false);
-//window.addEventListener('load', onLoad);
-
-// dom
 document.body.style.margin = 0;
 document.body.appendChild(renderer.domElement);

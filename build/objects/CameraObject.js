@@ -7,7 +7,5 @@ exports.default = CameraObject;
 function CameraObject() {
   var camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 1, 1000);
   camera.position.z = -14;
-  camera.position.x = 3;
-
   return camera;
 }

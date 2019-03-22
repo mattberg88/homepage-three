@@ -19,38 +19,65 @@
         var adder = 1;
         var loader = new THREE.TextureLoader();
         var texture = loader.load('https://s3.amazonaws.com/duhaime/blog/tsne-webgl/assets/cat.jpg')
+        var meshes = [];
+        var mouseDown = false
+        var group = new THREE.Group();
+        var mouseDownTime;
+        var mouseUpTime;
         for (var i =0; i < 3; i++) {
-        var material = new THREE.MeshLambertMaterial();
-        material.map = texture
-        var geometry = new THREE.PlaneGeometry(2, 1.5);
-        var mesh = new THREE.Mesh(geometry, material);
-        mesh.position.set(0, 5, 0)
-        console.log(mesh)
-        mesh.rotation.x += 3;
-        mesh.position.x += adder
-        mesh.position.z -= 5;
-        mesh.name = 'carouselImage'
-        adder += 2.2;
-        mesh.material.side = THREE.DoubleSide; 
-        scene.add(mesh)
+          var material = new THREE.MeshLambertMaterial();
+          material.map = texture
+          var geometry = new THREE.PlaneGeometry(2, 1.5);
+          meshes[i] = new THREE.Mesh(geometry, material);
+          meshes[i].position.set(-6, 5, 0)
+          meshes[i].rotation.x += 3;
+          meshes[i].position.x += adder
+          meshes[i].position.z -= 3;
+          meshes[i].name = `carouselImage`
+          adder += 2.2;
+          meshes[i].material.side = THREE.DoubleSide; 
+          group.add(meshes[i])
         }
-        // var animate = function() {
-        //   window.requestAnimationFrame(animate);
-        // }
-        // animate();
+        scene.add(group)
+        var originalPos
+        var mouseOffset1 = 0;
+        var mouseOffset2 = 0;
+        var beforeSelectPos;
+        var animate = function() {
+          if(mouseDown) {
+            mouseOffset2 = mouseOffset1 - mouse.x;
+            group.position.x = originalPos + mouseOffset2 * 5
+          }
+          window.requestAnimationFrame(animate);
+        }
+        animate();
 
         var onMouseMove = function() {
-          console.log('movin')
-          var intersects = raycaster.intersectObjects(scene.children)
+          var intersects = raycaster.intersectObjects(group.children)
            if (intersects.length > 0) {
              intersectedObject = intersects[0]
           } else { intersectedObject = null; }
         }
         var onMouseDown = function () {
-          scene.position.x = mouse.x
+          if(intersectedObject && intersectedObject.object.name === 'carouselImage') {
+            mouseDown = true;
+          }
+          mouseOffset1 = mouse.x
+          originalPos = group.position.x
+          mouseDownTime = clock.getElapsedTime();
         }
         var onMouseUp = function () {
-          console.log('up')
+          mouseUpTime = clock.getElapsedTime()
+          if(mouseUpTime - mouseDownTime < 0.3 && intersectedObject) {
+            if(intersectedObject.object.position.z === -10) {
+              intersectedObject.object.position.z = 2
+            } else {
+              intersectedObject.object.position.z = -10
+            }
+          }
+          mouseOffset2 = 0;
+
+          mouseDown = false;
 
         }
         window.addEventListener('mousemove', onMouseMove, false);

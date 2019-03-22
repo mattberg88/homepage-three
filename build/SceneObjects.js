@@ -43,7 +43,7 @@ function SceneObjects(scene) {
     }
   };
   this.glitch = function (effectGlitch, bool) {
-    if (bool) $('#staticsound').get(0).play();  
+    $('#staticsound').get(0).play().then(() => {}).catch(e => {})
     effectGlitch.enabled = bool;
     effectGlitch.goWild = bool;
   };
@@ -60,7 +60,7 @@ function SceneObjects(scene) {
       case 'art.':
         $("#placeholder").load("assets/html/art.html").fadeIn(); break;
       case 'web.':
-        $("#placeholder").load("assets/html/art.html").fadeIn(); break;
+        $("#placeholder").load("assets/html/web.html").fadeIn(); break;
       case 'cV.' :
         $("#placeholder").load("assets/html/cv.html").fadeIn(); break;
       case 'bio.':
