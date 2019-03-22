@@ -2,17 +2,22 @@
   font-family: "8bitlim";
   src: url(assets/fonts/8bitlim.woff);
 }
-
+h1, h2, h3{
+  font-family: "8bitlim"!important;
+}
 body { 
   margin: 0;
   font-family: "8bitlim" 
 }
-
 canvas { 
   width: 640px; 
   height: 360px 
 }
-
+#placeTitle {
+  font-size: 2vw;
+  margin-top: 5vh;
+  text-align: center;
+}
 #placeholder {
   pointer-events: none;
   height: 100%; 
