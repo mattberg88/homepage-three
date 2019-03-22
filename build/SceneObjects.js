@@ -9,7 +9,9 @@ function SceneObjects(scene) {
   var light = new Light(scene, { x: 0, y: 0, z: -5 }, 'white', 1);
   var particles = new ParticlesObject(scene);
   scene.position.set(0, -5, 2);
-
+  if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+    location.href = '/mobile'
+  }
   this.update = function () {
     particles.rotate()
   };
