@@ -72,6 +72,7 @@ function SceneObjects(scene) {
   };
 
   this.ghostFadeIn = function (scene) {
+    $("#placeholder").fadeOut();
     scene.children[2].children.forEach(function (i) {
       if (i.material.opacity < 1) {
         i.material.opacity += 0.1
