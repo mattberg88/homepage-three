@@ -35,6 +35,8 @@
   }
 #lefticon {
   float: left;
+  left: 20vw;
+
 }
 #righticon {
   float: right;
@@ -42,15 +44,10 @@
 }
 div#carousel { 
   perspective: 1200px;  
-  padding-top: 10%; 
-  font-size:0; 
   margin-bottom: 3vh; 
-  margin-left: 15vw; 
-  overflow: hidden; 
 }
 div#carousel ~ span { 
   color: #fff; 
-  margin-left: 20%;
   display: inline-block; 
   text-decoration: none; 
   font-size: 2rem; 
@@ -58,7 +55,6 @@ div#carousel ~ span {
   position: relative; 
   margin-top: -6rem; 
   border-bottom: none; 
-  line-height: 0; 
 }
 div#carousel ~ span:hover { 
   color: #888; 
@@ -66,18 +62,17 @@ div#carousel ~ span:hover {
 }
 figure#spinner { 
   transform-style: preserve-3d; 
-  height: 300px; 
-  transform-origin: 35% 50% -500px; 
+  height: 50%; 
+  transform-origin: 50% 50% -500px; 
   transition: 1s; 
 } 
 figure#spinner img { 
   pointer-events: all;
-  max-width:200px;
   position: absolute; 
-  left: 30%;
+  width:200px;
+  left: 43%;
   bottom: 20%;
   transform-origin: 50% 50% -500px;
-  outline:1px solid transparent; 
 }
 
 </style>
@@ -85,7 +80,6 @@ figure#spinner img {
   var transform = 360 / ($('#spinner').children().length)
   $.each($('#spinner').children(), function(k, i){
     $(i).css('transform', `rotateY(${transform * (-k)}deg)`)
-      .css('width', `${200/ ($('#spinner').children().length)}vw`)
   })
   $('#spinner').click(function (i) {
     console.log($('.ui.modal')[0].children[0].children[0].src)
