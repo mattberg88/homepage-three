@@ -1,0 +1,115 @@
+@font-face {
+  font-family: "8bitlim";
+  src: url(../assets/fonts/8bitlim.woff);
+}
+@media screen and (max-width: 480px) {
+
+h1 {font-size: 25px}
+
+}
+h1, h2, h3{
+  font-family: "8bitlim"!important;
+}
+body { 
+  margin: 0;
+  font-family: "8bitlim" 
+}
+canvas { 
+  width: 640px; 
+  height: 360px 
+}
+#placeTitle {
+  font-size: 2vw;
+  margin-top: 5vh;
+  text-align: center;
+}
+#placeholder {
+  pointer-events: none;
+  height: 100%; 
+  width: 100%; 
+  position: absolute;
+  color: white;
+  display: hidden;
+}
+
+#title { 
+  position: absolute;
+  display: block; 
+  font-size: 6vh;
+  letter-spacing: 3px;
+  color: rgba(0, 254, 254, 1);
+  display: block;
+  z-index: 99;
+  right: 7%;
+  bottom: 10%;
+}
+
+#title:after {
+  content:"mattBerg.";
+  position:absolute;
+  display: block;
+  top:0;
+  right:3px;
+  color: rgba(254, 0, 2, 1);
+  mix-blend-mode:screen;
+}
+
+#audioIcon {
+  cursor:pointer;
+  color: rgba(0, 254, 254, 1);
+  position: absolute;
+  display: block;
+  z-index: 99;
+  left: 88vw;
+  top: 2.5%;
+}		
+#audioIcon:after {
+  content:"soundOff";
+  position:absolute;
+  display: block;
+  top:0;
+  right:5px;
+  color: rgba(254, 0, 2, 1);
+  mix-blend-mode:screen;
+}	
+#audioIcon.change:after {
+  content:'soundOn';
+}
+.ui.dropdown .menu>.item {
+  margin-bottom: 5vh!important;
+  font-size: 3vh;
+  color: rgba(0, 254, 254, 1);
+  text-align: right;
+}
+.ui.dropdown .menu>.item.active.selected  {
+  color: rgba(0, 254, 254, 1);
+}
+
+.ui.dropdown .menu>.item:after {
+  position:absolute;
+  display: block;
+  top:11px;
+  right:18px;
+  color: rgba(254, 0, 2, 1);
+  mix-blend-mode:screen;
+}
+#mainArt:after {
+ content:"art.";
+}	
+#mainWeb:after {
+ content:"web.";
+}	
+#mainCv:after {
+ content:"cV.";
+}	
+#mainBio:after {
+ content:"bio.";
+}	
+#mainContact:after {
+ content:"contact.";
+}	
+.menu.transition {
+  margin-bottom:5vh!important;
+  right:-5%;
+  background: none!important;
+}

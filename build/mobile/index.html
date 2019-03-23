@@ -1,0 +1,62 @@
+<html>
+
+<head>
+  <title>mattBerg.</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="../assets/style/semantic.min.css">
+  <link rel="stylesheet" type="text/css" href="./stylePhone.css">
+</head>
+
+<body>
+  <div id="audioIcon">soundOff.</div>
+  <div id="title" class="ui dropdown">
+    mattBerg.
+    <div class="menu">
+      <div id="mainArt" class="item">art.</div>
+      <div id="mainWeb" class="item">web.</div>
+      <div id="mainCv" class="item">cV.</div>
+      <div id="mainBio" class="item">bio.</div>
+      <div id="mainContact" class="item">contact.</div>
+    </div>
+  </div>
+  <div id="placeholder"></div>
+  <script> var exports = {}; </script>
+  <script src="../assets/js/JQuery.js"></script>
+  <script src="../assets/js/semantic.min.js"></script>
+  <script src="../assets/js/Three.js"></script>
+  <script src="../assets/js/OrbitControls.js"></script>
+  <script src="../assets/js/GLTFLoader.js"></script>
+  <script src="../assets/js/AnaglyphEffect.js"></script>
+  <script src="../assets/js/EffectComposer.js"></script>
+  <script src="../assets/js/RenderPass.js"></script>
+  <script src="../assets/js/ShaderPass.js"></script>
+  <script src="../assets/js/CopyShader.js"></script>
+  <script src="../assets/js/GlitchPass.js"></script>
+  <script src="../assets/js/DigitalGlitch.js"></script>
+  <script src="../SceneObjects.js"></script>
+  <script src="../objects/CameraObject.js"></script>
+  <script src="../objects/RendererObject.js"></script>
+  <script src="../objects/ParticlesObject.js"></script>
+  <script src="../objects/Ghost.js"></script>
+  <script src="../objects/Light.js"></script>
+  <script>
+    $('document').ready(function () {
+      $("#staticsound").get(0).volume = 0;
+      $("#menu1").get(0).volume = 0;
+      $("#menu2").get(0).volume = 0;
+      $("#menu3").get(0).volume = 0;
+      $('.ui.dropdown').dropdown({ direction: 'upward' });
+    })
+  </script>
+
+  <audio preload="auto" id="dronesound" src="../assets/sounds/drone.ogg" loop></audio>
+  <audio preload="auto" id="staticsound" src="../assets/sounds/static.ogg"></audio>
+  <audio preload="auto" id="menu1" src="../assets/sounds/menu1.ogg"></audio>
+  <audio preload="auto" id="menu2" src="../assets/sounds/menu2.ogg"></audio>
+  <audio preload="auto" id="menu3" src="../assets/sounds/menu3.ogg"></audio>
+  <audio preload="auto" id="menu4" src="../assets/sounds/menu4.ogg"></audio>
+
+  <script src="./entryPhone.js"></script>
+</body>
+
+</html>
