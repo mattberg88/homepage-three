@@ -16,16 +16,11 @@ sceneObjects.setUpComposer(composer, renderPass, effectGlitch)
 var ghostVisible = true;
 var modelLoaded = false;
 var isMobile = false
-controls.enabled = false;
-if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-  sceneObjects.glitch(effectGlitch, false)
-}
+sceneObjects.glitch(effectGlitch, false)
+
 var animate = function() {
   renderer.render(scene, camera);
   sceneObjects.update();
-  if (clock.elapsedTime > 1 && clock.elapsedTime < 2) {
-    sceneObjects.glitch(effectGlitch, false)
-  }
   if (scene.children.length > 2) {
     if (ghostVisible) sceneObjects.ghostFadeIn(scene);
     if (!ghostVisible) sceneObjects.ghostFadeOut(scene);

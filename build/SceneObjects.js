@@ -9,10 +9,14 @@ function SceneObjects(scene) {
   var light = new Light(scene, { x: 0, y: 0, z: -5 }, 'white', 1);
   var particles = new ParticlesObject(scene);
   scene.position.set(0, -5, 2);
+
   this.update = function () {
     particles.rotate()
   };
+  this.getGhostObject = function () {
+    return ghost.getGhost();
 
+  };
   this.getGhostMixer = function () {
     return ghost.getMixer();
   };
@@ -42,7 +46,6 @@ function SceneObjects(scene) {
     }
   };
   this.glitch = function (effectGlitch, bool) {
-    //$('#staticsound').get(0).play()
     effectGlitch.enabled = bool;
     effectGlitch.goWild = bool;
   };
@@ -71,20 +74,19 @@ function SceneObjects(scene) {
   };
 
   this.ghostFadeIn = function (scene) {
-    $("#placeholder").fadeOut();
-    scene.children[2].children.forEach(function (i) {
-      if (i.material.opacity < 1) {
-        i.material.opacity += 0.1
-        i.material.transparent = true;
-      }
+    scene.children[0].children.forEach(function (i) {
+    //  if (i.material.opacity < 1) {
+    //    i.material.opacity += 0.1
+    //    i.material.transparent = true;
+    //  }
     })
   }
   this.ghostFadeOut = function (scene) {
-    scene.children[2].children.forEach(function(i){ 
-      if(i.material.opacity > 0) {
-        i.material.opacity -= 0.1 
-        i.material.transparent = true;
-      }
+    scene.children[0].children.forEach(function(i){ 
+      // if(i.material.opacity > 0) {
+      //   i.material.opacity -= 0.1 
+      //   i.material.transparent = true;
+      // }
     })
   }
 }

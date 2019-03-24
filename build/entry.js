@@ -16,18 +16,16 @@ sceneObjects.setUpComposer(composer, renderPass, effectGlitch)
 var ghostVisible = true;
 var modelLoaded = false;
 var isMobile = false
-controls.enabled = false;
-
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
   location.href = '/mobile'
 }
-
 var animate = function() {
   renderer.render(scene, camera);
   sceneObjects.update();
   if (clock.elapsedTime > 1 && clock.elapsedTime < 2) {
     sceneObjects.glitch(effectGlitch, false)
   }
+  console.log(scene.children)
   if (scene.children.length > 2) {
     if (ghostVisible) sceneObjects.ghostFadeIn(scene);
     if (!ghostVisible) sceneObjects.ghostFadeOut(scene);
@@ -36,7 +34,7 @@ var animate = function() {
   }
   effect.render(scene, camera);
   composer.render(clock.getDelta())
-  //controls.update();
+  controls.update();
   requestAnimationFrame(animate);
 };
 animate();
@@ -49,7 +47,7 @@ var onMouseMove = function(event) {
         return i.type === "DirectionalLight"; 
       }), mouse
     );
-    sceneObjects.ghostEyeRotate(scene.children[2].children[1], mouse);
+    // sceneObjects.ghostEyeRotate(scene.children[2].children[1], mouse);
     effect.setStrength(mouse.x/5)
     var intersects = raycaster.intersectObjects(scene.children[2].children);
     if (intersects.length > 0) {
