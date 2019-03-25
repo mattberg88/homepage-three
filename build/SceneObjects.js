@@ -37,12 +37,14 @@ function SceneObjects(scene) {
     if ($("#audioIcon").html() === 'soundOff.') {
       $("#audioIcon").html('soundOn.').addClass('change')
       $("#dronesound").get(0).volume = 0.4;
-      $("#staticsound").get(0).volume = 0.4;
+      $("#staticsound").get(0).volume = 0.2;
       $("#menu2").get(0).volume = 0.4;
+      $("#menu4").get(0).volume = 0.2;
       $("#dronesound").get(0).play()
     } else {
       $("#audioIcon").html('soundOff.').removeClass('change');
       $("#menu2").get(0).volume = 0;
+      $("#menu4").get(0).volume = 0;
       $("#dronesound").get(0).pause()
       $("#staticsound").get(0).volume = 0;
     }
@@ -76,9 +78,7 @@ function SceneObjects(scene) {
   };
 
   this.ghostFadeIn = function (scene) {
-    console.log(scene.children[2].children[0].children);
     var meshes = scene.children[2].children[0].children.filter(function (i) { return i.type === 'SkinnedMesh' });
-    console.log(meshes)
     meshes.forEach(function (i) {
      if (i.material.opacity < 1) {
        i.material.opacity += 0.1

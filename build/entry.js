@@ -12,7 +12,6 @@ var composer = new THREE.EffectComposer(renderer)
 var renderPass = new THREE.RenderPass(scene, camera)
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
 var effect = new THREE.AnaglyphEffect(renderer, window.innerWidth, window.innerHeight);
-effect.setStrength(0.04)
 sceneObjects.setUpComposer(composer, renderPass, effectGlitch)
 var ghostVisible = true;
 var modelLoaded = false;
@@ -23,7 +22,8 @@ if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phon
 var animate = function() {
   renderer.render(scene, camera);
   sceneObjects.update();
-  if (clock.elapsedTime > 1 && clock.elapsedTime < 2) {
+  effect.setStrength(mouse.x/10)
+  if (clock.elapsedTime > 1.3 && clock.elapsedTime < 2) {
     sceneObjects.glitch(effectGlitch, false)
   }
   if (scene.children.length > 2) {
@@ -39,7 +39,6 @@ var animate = function() {
   requestAnimationFrame(animate);
 };
 animate();
-// mouse movement
 var onMouseMove = function(event) {
   raycaster.setFromCamera(mouse, camera);
   if (scene.children[2]) {
@@ -48,7 +47,7 @@ var onMouseMove = function(event) {
         return i.type === "DirectionalLight"; 
       }), mouse
     );    
-    var intersects = raycaster.intersectObjects(scene.children[2].children);
+    var intersects = raycaster.intersectObjects(scene.children[2].children[0].children);
     if (intersects.length > 0) {
       if (intersects[0].object !== intersectedObject) intersectedObject = intersects[0].object;
       if (intersects[0].object.name === 'ZBrush_defualt_group002') mouseOn = 'eye';
@@ -56,13 +55,6 @@ var onMouseMove = function(event) {
       intersectedObject = null;
       mouseOn = null;
     }
-  }
-  if(ghostVisible && mouseOn === 'eye'){
-    $('#staticsound').get(0).play().then(() => { }).catch(e => { })
-    sceneObjects.glitch(effectGlitch, true)
-  }
-  if (mouseOn !== 'eye' && clock.elapsedTime > 1.3) {
-    sceneObjects.glitch(effectGlitch, false)
   }
   mouse.x = event.clientX / window.innerWidth * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
@@ -74,8 +66,15 @@ var onMouseDown = function(e) {
     $('#menu2').get(0).play();
   }
   if (e.target.className.includes("item") ) {
+    sceneObjects.glitch(effectGlitch, true)
+    setTimeout(function(){ sceneObjects.glitch(effectGlitch, false) }, 100)
+    $('#staticsound').get(0).play();
+
     ghostVisible = false
     sceneObjects.renderSection(e.target.innerHTML)
+  }
+  if(mouseOn === 'eye') {
+   $('#menu4').get(0).play()
   }
   if (e.target.id === 'audioIcon'){
     sceneObjects.toggleAudio()

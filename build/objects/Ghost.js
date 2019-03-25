@@ -31,12 +31,12 @@ function Ghost(scene) {
       var bottomClip= new THREE.AnimationClip.findByName(clips, 'Bottom');
       var leftClip = new THREE.AnimationClip.findByName(clips, 'Left');
       var rightClip = new THREE.AnimationClip.findByName(clips, 'Right');
-
       idleAnim = mixer.clipAction(idleClip);
       topAnim = mixer.clipAction(topClip);
       bottomAnim = mixer.clipAction(bottomClip);
       leftAnim = mixer.clipAction(leftClip);
       rightAnim = mixer.clipAction(rightClip);
+      idleAnim.timeScale = 1.5;
       idleAnim.play();
       topAnim.weight = 0; 
       topAnim.play();

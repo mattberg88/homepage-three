@@ -70,17 +70,25 @@ canvas {
 #audioIcon.change:after {
   content:'soundOn';
 }
-.ui.dropdown .menu>.item {
+#title .menu>.item {
   margin-bottom: 5vh!important;
   font-size: 3vh;
   color: rgba(0, 254, 254, 1);
   text-align: right;
 }
-.ui.dropdown .menu>.item.active.selected  {
+#title .menu>.item.active.selected  {
   color: rgba(0, 254, 254, 1);
 }
+#title .menu.transition {
+  border-width: 0!important;
+  box-shadow: none!important;
+}
+#title .menu>.item:hover {
+  background-color: rgb(0,0,0,0)
 
-.ui.dropdown .menu>.item:after {
+}
+
+#title .menu>.item:after {
   position:absolute;
   display: block;
   top:11px;

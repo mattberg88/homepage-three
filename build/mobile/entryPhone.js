@@ -29,11 +29,10 @@ var animate = function() {
   }
   effect.render(scene, camera);
   composer.render(clock.getDelta())
-  //controls.update();
+  controls.update();
   requestAnimationFrame(animate);
 };
 animate();
-// mouse movement
 var onMouseMove = function(event) {
   raycaster.setFromCamera(mouse, camera);
   if (scene.children[2]) {
@@ -42,7 +41,7 @@ var onMouseMove = function(event) {
         return i.type === "DirectionalLight"; 
       }), mouse
     );
-    sceneObjects.ghostEyeRotate(scene.children[2].children[1], mouse);
+    //sceneObjects.ghostEyeRotate(scene.children[2].children[1], mouse);
     effect.setStrength(mouse.x/5)
     var intersects = raycaster.intersectObjects(scene.children[2].children);
     if (intersects.length > 0) {
@@ -84,13 +83,9 @@ var onMouseDown = function(e) {
         $("#placeholder").load("./html/contact.html").fadeIn(); break;
       default: null;
     }
-    
   }
   if (e.target.id === 'audioIcon'){
     sceneObjects.toggleAudio()
-  }
-  if(e.target.name === 'carouselImage') { 
-    console.log('carousel')
   }
 };
 var windowResizeHanlder = function() {

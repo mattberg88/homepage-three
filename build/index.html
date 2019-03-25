@@ -41,13 +41,15 @@
         $("#staticsound").get(0).volume = 0;
         $("#menu1").get(0).volume = 0;
         $("#menu2").get(0).volume = 0;
-        $("#menu3").get(0).volume = 0;
-        $('.ui.dropdown').dropdown({ direction: 'upward' });
+        $("#menu4").get(0).volume = 0;
+        $('#title').dropdown({ direction: 'upward' });
+        setTimeout(function(){$('#title').click()}, 500);
       })
     </script>
 
 		<audio preload="auto" id="dronesound" src="assets/sounds/drone.ogg" loop></audio>
     <audio preload="auto" id="staticsound" src="assets/sounds/static.ogg"></audio>
+    <audio preload="auto" id="staticsound" src="../assets/sounds/static.ogg"></audio>
     <audio preload="auto" id="menu1" src="assets/sounds/menu1.ogg"></audio>
     <audio preload="auto" id="menu2" src="assets/sounds/menu2.ogg"></audio>
     <audio preload="auto" id="menu3" src="assets/sounds/menu3.ogg"></audio>
