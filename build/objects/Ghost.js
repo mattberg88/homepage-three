@@ -19,14 +19,12 @@ function Ghost(scene) {
       obj.scene.children[0].children[i].position.y += 1;
       obj.scene.children[0].children[i].position.x += 1;
       material = obj.scene.children[0].children[i].material;
-
       material.transparent = true;
-      // material.opacity = 0;
+      material.opacity = 0;
       material.normalMap = normalMap;
       material.normalMap.flipY = false;
       material.normalScale.x = 2;
       material.normalScale.y = 2;
-      console.log(obj)
       var clips = obj.animations
       var idleClip = new THREE.AnimationClip.findByName(clips, 'Idle');
       var topClip = new THREE.AnimationClip.findByName(clips, 'Top');

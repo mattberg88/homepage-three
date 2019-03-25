@@ -76,19 +76,23 @@ function SceneObjects(scene) {
   };
 
   this.ghostFadeIn = function (scene) {
-    scene.children[0].children.forEach(function (i) {
-    //  if (i.material.opacity < 1) {
-    //    i.material.opacity += 0.1
-    //    i.material.transparent = true;
-    //  }
+    console.log(scene.children[2].children[0].children);
+    var meshes = scene.children[2].children[0].children.filter(function (i) { return i.type === 'SkinnedMesh' });
+    console.log(meshes)
+    meshes.forEach(function (i) {
+     if (i.material.opacity < 1) {
+       i.material.opacity += 0.1
+       i.material.transparent = true;
+     }
     })
   }
   this.ghostFadeOut = function (scene) {
-    scene.children[0].children.forEach(function(i){ 
-      // if(i.material.opacity > 0) {
-      //   i.material.opacity -= 0.1 
-      //   i.material.transparent = true;
-      // }
+    var meshes = scene.children[2].children[0].children.filter(function (i) { return i.type === 'SkinnedMesh' });
+    meshes.forEach(function(i){ 
+      if(i.material.opacity > 0) {
+        i.material.opacity -= 0.1 
+        i.material.transparent = true;
+      }
     })
   }
 }

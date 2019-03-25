@@ -12,6 +12,7 @@ var composer = new THREE.EffectComposer(renderer)
 var renderPass = new THREE.RenderPass(scene, camera)
 var controls = new THREE.OrbitControls(camera, renderer.domElement);
 var effect = new THREE.AnaglyphEffect(renderer, window.innerWidth, window.innerHeight);
+effect.setStrength(0.04)
 sceneObjects.setUpComposer(composer, renderPass, effectGlitch)
 var ghostVisible = true;
 var modelLoaded = false;
@@ -46,9 +47,7 @@ var onMouseMove = function(event) {
       scene.children.find(function (i) { 
         return i.type === "DirectionalLight"; 
       }), mouse
-    );
-    // sceneObjects.ghostEyeRotate(scene.children[2].children[1], mouse);
-    effect.setStrength(mouse.x/5)
+    );    
     var intersects = raycaster.intersectObjects(scene.children[2].children);
     if (intersects.length > 0) {
       if (intersects[0].object !== intersectedObject) intersectedObject = intersects[0].object;
@@ -80,9 +79,6 @@ var onMouseDown = function(e) {
   }
   if (e.target.id === 'audioIcon'){
     sceneObjects.toggleAudio()
-  }
-  if(e.target.name === 'carouselImage') { 
-    console.log('carousel')
   }
 };
 var windowResizeHanlder = function() {
