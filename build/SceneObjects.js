@@ -20,7 +20,9 @@ function SceneObjects(scene) {
   this.getGhostMixer = function () {
     return ghost.getMixer();
   };
-
+  this.ghostFadeAnim = function (mouse) {
+    ghost.fadeAnim(mouse);
+  };
   this.ghostEyeRotate = function (ghostEye, mouse) {
     ghostEye.rotation.z = mouse.x + 3.2;
     ghostEye.rotation.x = mouse.y - 1.7 

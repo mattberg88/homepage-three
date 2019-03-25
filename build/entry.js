@@ -25,8 +25,8 @@ var animate = function() {
   if (clock.elapsedTime > 1 && clock.elapsedTime < 2) {
     sceneObjects.glitch(effectGlitch, false)
   }
-  console.log(scene.children)
   if (scene.children.length > 2) {
+    sceneObjects.ghostFadeAnim(mouse);
     if (ghostVisible) sceneObjects.ghostFadeIn(scene);
     if (!ghostVisible) sceneObjects.ghostFadeOut(scene);
     mixer = sceneObjects.getGhostMixer();

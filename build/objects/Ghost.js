@@ -5,12 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = Ghost;
 function Ghost(scene) {
+  var idleAnim, topAnim, bottomAnim, leftAnim, rightAnim;
   var gltfObject = null;
   var material = null;
   var mixer = null;
   var loader = new THREE.GLTFLoader();
   var normalMap = new THREE.TextureLoader().load("../assets/textures/demonnorms.gif");
-  loader.load('../assets/gltf/threeanimtest6.gltf', function (obj) {
+  loader.load('../assets/gltf/threeanimtest11.gltf', function (obj) {
     scene.add(obj.scene);
     mixer = new THREE.AnimationMixer(obj.scene);
     gltfObject = obj;
@@ -25,13 +26,37 @@ function Ghost(scene) {
       material.normalMap.flipY = false;
       material.normalScale.x = 2;
       material.normalScale.y = 2;
-      console.log(obj.animations)
+      console.log(obj)
       var clips = obj.animations
-      var clipAnimation = new THREE.AnimationClip.findByName(clips, 'ArmatureAction');
-      var action = mixer.clipAction(clipAnimation);
-      action.play();
+      var idleClip = new THREE.AnimationClip.findByName(clips, 'Idle');
+      var topClip = new THREE.AnimationClip.findByName(clips, 'Top');
+      var bottomClip= new THREE.AnimationClip.findByName(clips, 'Bottom');
+      var leftClip = new THREE.AnimationClip.findByName(clips, 'Left');
+      var rightClip = new THREE.AnimationClip.findByName(clips, 'Right');
+
+      idleAnim = mixer.clipAction(idleClip);
+      topAnim = mixer.clipAction(topClip);
+      bottomAnim = mixer.clipAction(bottomClip);
+      leftAnim = mixer.clipAction(leftClip);
+      rightAnim = mixer.clipAction(rightClip);
+      idleAnim.play();
+      topAnim.weight = 0; 
+      topAnim.play();
+      bottomAnim.weight = 0;
+      bottomAnim.play();
+      leftAnim.weight = 0; 
+      leftAnim.play();
+      rightAnim.weight = 0;
+      rightAnim.play();
+
     }
   });
+  this.fadeAnim = function(mouse) {
+    topAnim.weight = mouse.y
+    bottomAnim.weight = -mouse.y
+    leftAnim.weight = -mouse.x
+    rightAnim.weight = mouse.x
+  };
   this.getMixer = function () {
     return mixer;
   };
