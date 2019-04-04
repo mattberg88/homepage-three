@@ -14,17 +14,13 @@ var controls = new THREE.OrbitControls(camera, renderer.domElement);
 var effect = new THREE.AnaglyphEffect(renderer, window.innerWidth, window.innerHeight);
 sceneObjects.setUpComposer(composer, renderPass, effectGlitch)
 var ghostVisible = true;
-var modelLoaded = false;
-var isMobile = false
-if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
-  location.href = '/mobile'
-}
-var animate = function() {
+
+function animate() {
   renderer.render(scene, camera);
   sceneObjects.update();
-  effect.setStrength(mouse.x/10)
+  effect.setStrength(mouse.x / 10);
   if (clock.elapsedTime > 1.3 && clock.elapsedTime < 2) {
-    sceneObjects.glitch(effectGlitch, false)
+    sceneObjects.glitch(effectGlitch, false);
   }
   if (scene.children.length > 2) {
     sceneObjects.ghostFadeAnim(mouse);
@@ -34,19 +30,20 @@ var animate = function() {
     mixer.update(clock.getDelta());
   }
   effect.render(scene, camera);
-  composer.render(clock.getDelta())
+  composer.render(clock.getDelta());
   controls.update();
   requestAnimationFrame(animate);
-};
+}
+
 animate();
-var onMouseMove = function(event) {
+function onMouseMove(event) {
   raycaster.setFromCamera(mouse, camera);
   if (scene.children[2]) {
     sceneObjects.lightSetPos(
-      scene.children.find(function (i) { 
-        return i.type === "DirectionalLight"; 
+      scene.children.find(function (i) {
+        return i.type === 'DirectionalLight';
       }), mouse
-    );    
+    );
     var intersects = raycaster.intersectObjects(scene.children[2].children[0].children);
     if (intersects.length > 0) {
       if (intersects[0].object !== intersectedObject) intersectedObject = intersects[0].object;
@@ -58,33 +55,36 @@ var onMouseMove = function(event) {
   }
   mouse.x = event.clientX / window.innerWidth * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-};
-var onMouseDown = function(e) {  
-  if (e.target.id === "title") {
-    ghostVisible = true
-    $('#placeholder').fadeOut()
+}
+
+function onMouseDown(e) {
+  if (e.target.id === 'title') {
+    ghostVisible = true;
+    $('#placeholder').fadeOut();
     $('#menu2').get(0).play();
   }
-  if (e.target.className.includes("item") ) {
-    sceneObjects.glitch(effectGlitch, true)
-    setTimeout(function(){ sceneObjects.glitch(effectGlitch, false) }, 100)
+  if (e.target.className.includes('item') ) {
+    sceneObjects.glitch(effectGlitch, true);
+    setTimeout(function () { sceneObjects.glitch(effectGlitch, false); }, 100);
     $('#staticsound').get(0).play();
 
-    ghostVisible = false
-    sceneObjects.renderSection(e.target.innerHTML)
+    ghostVisible = false;
+    sceneObjects.renderSection(e.target.innerHTML);
   }
-  if(mouseOn === 'eye') {
-   $('#menu4').get(0).play()
+  if (mouseOn === 'eye') {
+    $('#menu4').get(0).play();
   }
-  if (e.target.id === 'audioIcon'){
-    sceneObjects.toggleAudio()
+  if (e.target.id === 'audioIcon') {
+    sceneObjects.toggleAudio();
   }
-};
-var windowResizeHanlder = function() {
+}
+
+function windowResizeHanlder() {
   renderer.setSize(window.innerWidth, window.innerHeight);
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
-};
+}
+
 windowResizeHanlder();
 window.addEventListener('resize', windowResizeHanlder);
 window.addEventListener('mousemove', onMouseMove, false);

@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
 exports.default = Light;
@@ -11,5 +11,4 @@ function Light(scene, xyz, color, int) {
   light.position.z = xyz.z;
   light.intensity = int;
   scene.add(light);
-
 }

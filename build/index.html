@@ -37,6 +37,10 @@
 		<script src="objects/Ghost.js"></script>
     <script src="objects/Light.js"></script>
     <script>
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
+        location.href = '/mobile'
+      }
+
       $('document').ready(function() {
         $("#staticsound").get(0).volume = 0;
         $("#menu1").get(0).volume = 0;

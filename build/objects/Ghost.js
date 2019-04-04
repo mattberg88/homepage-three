@@ -1,6 +1,6 @@
 'use strict';
 
-Object.defineProperty(exports, "__esModule", {
+Object.defineProperty(exports, '__esModule', {
   value: true
 });
 exports.default = Ghost;
@@ -10,7 +10,7 @@ function Ghost(scene) {
   var material = null;
   var mixer = null;
   var loader = new THREE.GLTFLoader();
-  var normalMap = new THREE.TextureLoader().load("../assets/textures/demonnorms.gif");
+  var normalMap = new THREE.TextureLoader().load('../assets/textures/demonnorms.gif');
   loader.load('../assets/gltf/threeanimtest11.gltf', function (obj) {
     scene.add(obj.scene);
     mixer = new THREE.AnimationMixer(obj.scene);
@@ -46,10 +46,9 @@ function Ghost(scene) {
       leftAnim.play();
       rightAnim.weight = 0;
       rightAnim.play();
-
     }
   });
-  this.fadeAnim = function(mouse) {
+  this.fadeAnim = function (mouse) {
     topAnim.weight = mouse.y
     bottomAnim.weight = -mouse.y
     leftAnim.weight = -mouse.x
