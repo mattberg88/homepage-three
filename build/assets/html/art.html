@@ -50,7 +50,7 @@
     pointer-events: all;
     position: absolute;
     width: 200px;
-    left: 37%;
+    left: 39%;
     bottom: 20%;
     transform-origin: 50% 50% -500px;
   }
@@ -75,26 +75,24 @@
   </div>
   <div id="carousel">
     <figure id="spinner">
-      <img id="imageOne" src="../assets/img/brienne.jpg" alt>
-      <img id="imageTwo" src="../assets/img/oldman.jpg" alt>
-      <img id="imageThree" src="../assets/img/emissary.jpg" alt>
-      <img id="imageFour" src="../assets/img/lisker.jpg" alt>
-      <img id="imageFive" src="../assets/img/mercenary.jpg" alt>
-      <img id="imageSix" src="../assets/img/cyborg.jpg" alt>
-      <img id="imageSix" src="../assets/img/captain.jpg" alt>
+      <img id="brienne" src="../assets/img/brienne.jpg" alt>
+      <img id="knight" src="../assets/img/knight.jpg" alt>
+      <img id="oldman" src="../assets/img/oldman.jpg" alt>
+      <img id="emissary" src="../assets/img/emissary.jpg" alt>
+      <img id="lisker" src="../assets/img/lisker.jpg" alt>
+      <img id="mercenary" src="../assets/img/mercenary.jpg" alt>
+      <img id="cyborg" src="../assets/img/cyborg.jpg" alt>
+      <img id="captain" src="../assets/img/captain.jpg" alt>
     </figure>
   </div>
   <div id="captioncontainer">
     <p id="artcaption">
-      Astral Emissary 2016 3D model created in ZBrush and rendered in keyshot
+      Photoshop painting of one of my favorite characters from the Game Of Thrones series.
     </p>
   </div>
   <div class="ui basic modal">
     <div class="content">
-      <img src="../img/emissary.jpg" width="100%"/>
-    </div>
-    <div class="description">
-      Astral Emissary 2016 3D model created in ZBrush and rendered in keyshot
+      <img src="assets/img/emissary.jpg" width="100%"/>
     </div>
     <div id="cancelicon">
       close
@@ -109,22 +107,22 @@
     $('.ui.modal').modal('hide');
   })
 
+  var descriptions = {
+    brienne: 'Photoshop painting of one of my favorite characters from the Game Of Thrones series.',
+    knight: 'Inspired by Dark Souls 3, made with Blender and Zbrush.',
+    oldman: 'ZBrush sculpt of a very old man.',
+    emissary: 'Inspired by Bloodborne. Sculpted in ZBrush and rendered in Keyshot.',
+    lisker: 'Still a work in progress, but here are some renders of the sculpt and a concept paint over in photoshop to use as reference to texture him.',
+    mercenary: 'Working on a realistic human character, inspired by the character art of the game The Division.',
+    cyborg: 'Cyborg zbrush sculpt based on Darren Bartleys sketch',
+    captain: 'I wanted to make a game model piece showing hard surface, organic modeling and texture painting.',
+  }
   var transform = 360 / ($('#spinner').children().length)
   $.each($('#spinner').children(), function(k, i){
     $(i).css('transform', `rotateY(${transform * (-k)}deg)`)
   })
   $('#spinner').click(function (i) {
-    if(i.target.id === "imageOne") {
-      $('.ui.basic.modal>.description').html('hohohoho');
-    }
-    if (i.target.id === "imageTwo") {
-      $('.ui.basic.modal>.description').html('hehehehe');
-    }
-    if (i.target.id === "imageThree") {
-      $('.ui.basic.modal>.description').html('hahahaha');
-    }
-    console.log($('.ui.modal')[0].children[0].children[0].src)
-    $('.ui.modal')[0].children[0].children[0].src =  i.target.src;
+    $('.ui.modal')[0].children[0].children[0].src =  `assets/img/${i.target.id}-large.jpg`;
     $('.ui.modal').modal('show');
   })
   var angle = 0;
@@ -139,16 +137,8 @@
       count = 1
     }
     console.log(count, totalCount)
-
-    if (count === 0) {
-      $('#artcaption').html('Astral Emissary 2016 3D model created in ZBrush and rendered in keyshot')
-    }
-    if(count === 1) {
-      $('#artcaption').html('oldman')
-    }
-    if (count === 2) {
-      $('#artcaption').html('olddan')
-    }
+   $('#artcaption').html(Object.values(descriptions)[count-1])
+    console.log(count, Object.values(descriptions)[count])
     spinner = document.querySelector("#spinner");
     if (!sign) { angle += transform; } else { angle -= transform; }
     spinner.setAttribute("style", "-webkit-transform: rotateY(" + angle + "deg); -moz-transform: rotateY(" + angle + "deg); transform: rotateY(" + angle + "deg);");
