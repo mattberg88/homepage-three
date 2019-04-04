@@ -71,9 +71,6 @@ function onMouseDown(e) {
     ghostVisible = false;
     sceneObjects.renderSection(e.target.innerHTML);
   }
-  if (mouseOn === 'eye') {
-    $('#menu4').get(0).play();
-  }
   if (e.target.id === 'audioIcon') {
     sceneObjects.toggleAudio();
   }
