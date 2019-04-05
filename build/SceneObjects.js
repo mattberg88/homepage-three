@@ -5,18 +5,30 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = SceneObjects;
 function SceneObjects(scene) {
+  var portal, torus
   var ghost = new Ghost(scene);
   var light = new Light(scene, { x: 0, y: 0, z: -5 }, 'white', 1);
   var particles = new ParticlesObject(scene);
   scene.position.set(0, -5, 2);
+  setTimeout(function(){ 
+    portal = new Portal(scene) 
+    torus = portal.getCube()
+  }, 2000)
 
+  this.torusAnim = function () {
+    // torus.rotation.x += 0.1;
+    //torus.rotation.y += 0.05;
+    torus.rotation.z += 0.05;
+  }
   this.update = function () {
     particles.rotate()
+  
   };
   this.getGhostObject = function () {
     return ghost.getGhost();
 
   };
+
   this.getGhostMixer = function () {
     return ghost.getMixer();
   };

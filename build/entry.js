@@ -19,12 +19,16 @@ var isMobile = false
 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(navigator.userAgent)) {
   location.href = '/mobile'
 }
+
 var animate = function() {
   renderer.render(scene, camera);
   sceneObjects.update();
   effect.setStrength(mouse.x/10)
   if (clock.elapsedTime > 1.3 && clock.elapsedTime < 2) {
     sceneObjects.glitch(effectGlitch, false)
+  }
+  if(clock.elapsedTime > 2) {
+    sceneObjects.torusAnim();
   }
   if (scene.children.length > 2) {
     sceneObjects.ghostFadeAnim(mouse);
