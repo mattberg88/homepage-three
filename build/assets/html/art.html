@@ -129,7 +129,7 @@
   var count = 1
   var totalCount = $('#spinner').children().length
   function galleryspin(sign) {
-    if(sign) { count -= 1 } else { count += 1 }
+    if(sign) { count += 1 } else { count -= 1 }
     if (count === 0) {
       count = totalCount
     }
@@ -140,7 +140,7 @@
    $('#artcaption').html(Object.values(descriptions)[count-1])
     console.log(count, Object.values(descriptions)[count])
     spinner = document.querySelector("#spinner");
-    if (!sign) { angle += transform; } else { angle -= transform; }
+    if (!sign) { angle -= transform; } else { angle += transform; }
     spinner.setAttribute("style", "-webkit-transform: rotateY(" + angle + "deg); -moz-transform: rotateY(" + angle + "deg); transform: rotateY(" + angle + "deg);");
   }
 </script>
